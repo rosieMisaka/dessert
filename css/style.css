@@ -1,0 +1,330 @@
+:root {
+    --product-imgSize: 100px;
+    --global-bg: white;
+    --addBtn-bg: #525252;
+    --p-dsp: #707070;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+/******     intro    *******/
+#intro {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: #f5f0e8;
+
+    opacity: 1;
+    transition: opacity 0.8s ease;
+}
+
+/* intro hide */
+#intro.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+/*当 trasaction 结束以后，intro要再显示出来*/
+#intro h1 {
+    margin: 0;
+    font-size: 45px;
+}
+
+#intro p {
+    margin: 80px 0 0;
+    font-size: 22px;
+}
+
+/*******    main page   *******/
+#home {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--global-bg);
+}
+/*main page header*/
+#home header{
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    border-bottom: 1px solid #e2ded4;
+}
+
+.ownerPage-btn {
+    margin-right: 10px;
+}
+
+/*cPage*/
+
+.main-content {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+/*cPage left*/
+.category-menu {
+    width: 15%;
+    max-width: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: #e2ded4;
+    /*border-right: 1px solid #e2ded4;*/
+}
+
+.category-menu button {
+    padding: 30px 10px;
+    background: none;
+    border: none;
+}
+
+.cat {
+    font-weight: normal;
+}
+
+.cat.active{
+    font-weight: bold;
+    background: #ffffff;
+}
+
+/*cPage right head*/
+
+.cPage-head {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    /*border: 1px solid blue;*/
+    background: var(--global-bg);
+    margin-top: 15px;
+    padding: 10px 20px 10px 25px;
+}
+
+.cPage-title {
+    margin-bottom: 5px;
+    margin-top: 0;
+}
+
+.cPage-dsp {
+    margin: 3px 0;
+
+    color: dimgrey;
+    /*border: 1px solid #000000;*/
+}
+
+/* cPage right main*/
+.category-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    /*border: 1px solid #000000;*/
+}
+
+.cpage {
+    display: none;
+}
+
+.cpage.active {
+    display: block;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px 30px 50px 30px;
+    /*border: 1px solid #000000;*/
+}
+
+.product-row {
+    display: grid;
+    align-items: center;
+    grid-template-columns: calc(var(--product-imgSize) + 30px) 1fr auto;
+    gap: 10px;
+    /*border: 1px solid #000000;*/
+}
+.product-row img {
+    width: var(--product-imgSize);
+    height: var(--product-imgSize);
+    object-fit: cover;
+}
+
+.product-info {
+    margin-right: 10px;
+    /*border: 1px solid #000000;*/
+}
+
+.p-description {
+    color: var(--p-dsp);
+}
+
+
+
+/* view cart button*/
+.viewCart {
+    position: fixed;
+    top: 12px;
+    right: 16px;
+    z-index: 30;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 17px;
+    border: none;
+    border-radius: 999px;         /* 胶囊形状 */
+    background: var(--addBtn-bg);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;          /* 防止文字换行 */
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.viewCart.hidden {
+    display: none;
+}
+/*当cart被清空呢？？？*/
+
+/*add item button*/
+.add-button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;          /* makes it a circle */
+    background: var(--addBtn-bg);
+    color: #fff;
+    font-size: 24px;
+    line-height: 1;
+    align-self: end;
+
+    /* center the plus symbol */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+/*      item Details sub-page     */
+.itemDetails {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.itemDetails.hidden {
+    display: none;
+}
+
+.itemDetails-panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 90%;
+    border-radius: 30px 30px 0 0;
+    background: var(--global-bg);
+    overflow-y: auto;
+    padding: 20px 35px;
+}
+
+.itemDetails-panel h2 {
+    margin-bottom: 5px;
+}
+
+.itemDetails-panel p {
+    margin: 5px 0;
+}
+
+.itemDetails-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.1);
+    color: #000;
+    font-size: 22px;
+    line-height: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.itemDetails-close::before,
+.itemDetails-close::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 2px;
+    background: #000;
+    border-radius: 1px;
+}
+
+.itemDetails-close::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.itemDetails-close::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/*     topping page topping list     */
+
+.topping-add {
+    position: absolute;
+    bottom: 12px;
+    right: 50%;
+    z-index: 30;
+}
+
+.topping-list {
+    display: flex;
+    flex-direction: column;        /* 一列，每个配料一行 */
+}
+
+.topping-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.topping-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.topping-price {
+    font-size: 14px;
+    color: #666;
+}
+
+.topping-check {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
