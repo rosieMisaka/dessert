@@ -1,6 +1,7 @@
 //intro-------------------------------------------------
 const intro = document.getElementById("intro");
 
+//listener for intro page
 intro.addEventListener("click", () => {
     intro.classList.add("hide");
 });
@@ -227,6 +228,7 @@ function showCategory(catId) {
 //Category Menu & Category content page show/hide -------------------------------------------------
 let activeCat = "c1";
 
+//listener for category menu
 document.getElementById("category").addEventListener('click', e => {
 
     const chosenCat = e.target.closest('.cat');
@@ -249,7 +251,7 @@ document.getElementById("category").addEventListener('click', e => {
 //add button to open sub-page
 const cart = [];
 let chosenProduct = null;
-
+//listener for dessert add button
 content.addEventListener('click', e => {
     const btn = e.target.closest('.add-button');
     if(!btn) return;
@@ -264,13 +266,27 @@ content.addEventListener('click', e => {
     }
 });
 
-document.querySelector('.itemDetails').addEventListener('click', e => {
-    const addBtn = e.target.closest('.topping-add');
-    if (!addBtn) return;
+/*topping page Display*/
+const toppingPage = document.querySelector(".itemDetails");
+//listener for topping page display - addToCard/X button
+toppingPage.addEventListener("click", e => {
 
-    calcQuantity();
-    console.log("clicking add to cart rest of dessert");
+    if (e.target.closest('.itemDetails-close')) {
+        toppingPage.classList.add("hidden");
+        return;
+    }
+
+    if (e.target.closest('.topping-add')) {
+        calcQuantity(chosenProduct);
+        console.log("clicking add to cart");
+        toppingPage.classList.add("hidden");
+    }
 });
+
+function toppingPageDisplay() {
+    toppingPage.classList.remove("hidden");
+    toppingListDisplay();
+}
 
 //calculate order quantity
 function calcQuantity(){
@@ -282,19 +298,6 @@ function calcQuantity(){
     }
     updateCardButton();
     console.log("Cart: ", cart);
-}
-
-//topping page display
-function toppingPageDisplay(){
-    const toppingPage = document.querySelector(".itemDetails");
-    toppingPage.classList.remove("hidden");
-
-    toppingPage.addEventListener("click", e => {
-        if (e.target.closest('.itemDetails-close')) {
-            toppingPage.classList.add("hidden");
-        }
-    });
-    toppingListDisplay();
 }
 
 //show topping list in topping page
