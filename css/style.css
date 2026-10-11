@@ -292,7 +292,7 @@ body {
 /*     topping page topping list     */
 
 .topping-add {
-    position: absolute;
+    position: fixed;
     bottom: 12px;
     right: 50%;
     z-index: 30;
