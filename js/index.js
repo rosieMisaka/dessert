@@ -191,11 +191,16 @@ const chooseToppingList = [
     { name: "Chia Seed", price: 1.85 },
     { name: "Peanut", price: 1.85 },
     { name: "Cereal Flakes", price: 1.85 },
+    { name: "Coconut Milk (4oz)", price: 2.99 },
+    { name: "Chia Seed", price: 1.85 },
+    { name: "Peanut", price: 1.85 },
+    { name: "Cereal Flakes", price: 1.85 },
     { name: "Coconut Milk (4oz)", price: 2.99 }
 ];
 
 //Category page initiate category content page data
 const content = document.getElementById("cPage");
+const main = document.getElementById("home");
 
 function showCategory(catId) {
 
@@ -259,7 +264,7 @@ content.addEventListener('click', e => {
     chosenProduct = categoryData[activeCat].products[btn.dataset.index];
 
     if(categoryData[activeCat].itemDetailsDisplay === "Yes"){
-        toppingPageDisplay();
+        openPanel("topping");
     }else {
         calcQuantity();
         console.log("clicking add to cart Classical Dessert");
@@ -267,26 +272,64 @@ content.addEventListener('click', e => {
 });
 
 /*topping page Display*/
-const toppingPage = document.querySelector(".itemDetails");
-//listener for topping page display - addToCard/X button
-toppingPage.addEventListener("click", e => {
-
-    if (e.target.closest('.itemDetails-close')) {
-        toppingPage.classList.add("hidden");
-        return;
+const views = {
+    topping: {
+        actionText: "Add to cart",
+        render: () => `
+            <h2>(Optional) Choose your toppings</h2>
+            <p>Choose up to 8 toppings</p>
+            <div class="topping-list" id="toppingList"></div>
+        `,
+        afterRender: toppingListDisplay,
+        onAction: addToCart
+    },
+    checkout: {
+        actionText: "Place order",
+        render: () => `<h2>Checkout</h2><div id="checkoutList"></div>`,
+        onAction: placeOrder
     }
+}
 
-    if (e.target.closest('.topping-add')) {
-        calcQuantity(chosenProduct);
-        console.log("clicking add to cart");
-        toppingPage.classList.add("hidden");
+const toppingPage = document.querySelector(".itemDetails");
+
+function openPanel(viewName) {
+    const v = views[viewName];
+    document.getElementById("panelContent").innerHTML = v.render();
+    if (v.afterRender) v.afterRender();
+
+    const btn = document.getElementById("panelAction");
+    btn.textContent = v.actionText;
+    btn.onclick = v.onAction;
+    toppingPage.classList.remove("hidden");
+
+    document.querySelector(".itemDetails-panel").scrollTop = 0;
+}
+
+
+//listener for topping page display - addToCard/X button
+function closePanel() {
+    toppingPage.classList.add("hidden");
+}
+
+function addToCart() {
+    console.log("Add to cart clicked");
+    calcQuantity(chosenProduct);
+    closePanel();
+}
+
+function placeOrder() {
+    console.log("place order clicked");
+    closePanel();
+    completeCycle();
+}
+
+
+toppingPage.addEventListener("click", e => {
+    if (e.target.closest('.itemDetails-close')) {
+        closePanel();
     }
 });
 
-function toppingPageDisplay() {
-    toppingPage.classList.remove("hidden");
-    toppingListDisplay();
-}
 
 //calculate order quantity
 function calcQuantity(){
@@ -302,6 +345,7 @@ function calcQuantity(){
 
 //show topping list in topping page
 function toppingListDisplay() {
+    console.log("generating topping list");
     document.getElementById("toppingList").innerHTML = chooseToppingList.map((t, index) => `
         <label class="topping-row">
             <div class="topping-info">
@@ -312,7 +356,7 @@ function toppingListDisplay() {
         </label>
     `).join('');
 
-    document.querySelector('.itemDetails').classList.remove('hidden');
+    main.querySelector('.itemDetails').classList.remove('hidden');
 }
 
 //cart show-up
@@ -324,6 +368,17 @@ function updateCardButton() {
 
     cartBtn.classList.toggle("hidden", totalQ === 0);
     cartText.textContent = `Cart • ${totalQ}`;
+}
+
+main.addEventListener("click", e => {
+    if (e.target.closest('.viewCart')) {
+        console.log("clicking view cart button");
+        openPanel("checkout");
+    }
+});
+
+function completeCycle() {
+    console.log("Customer has complete an order!");
 }
 
 //initiate page calling method

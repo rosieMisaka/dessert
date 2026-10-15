@@ -13,6 +13,10 @@ body {
     margin: 0;
 }
 
+.hidden {
+    display: none !important;
+}
+
 /******     intro    *******/
 #intro {
     position: fixed;
@@ -194,11 +198,6 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
-.viewCart.hidden {
-    display: none;
-}
-/*当cart被清空呢？？？*/
-
 /*add item button*/
 .add-button {
     width: 30px;
@@ -226,10 +225,6 @@ body {
     background: rgba(0, 0, 0, 0.5);
 }
 
-.itemDetails.hidden {
-    display: none;
-}
-
 .itemDetails-panel {
     position: absolute;
     left: 0;
@@ -239,7 +234,6 @@ body {
     border-radius: 30px 30px 0 0;
     background: var(--global-bg);
     overflow-y: auto;
-    padding: 20px 35px;
 }
 
 .itemDetails-panel h2 {
@@ -250,10 +244,22 @@ body {
     margin: 5px 0;
 }
 
+.itemDetails-panel .upper {
+    padding: 10px 0;
+    border-bottom: 1px solid #525252;
+    position: sticky;
+    top: 0;
+    background: var(--global-bg);
+
+    display: flex;
+    justify-content: center;
+}
+
 .itemDetails-close {
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
     width: 36px;
     height: 36px;
     padding: 0;
@@ -292,13 +298,16 @@ body {
 /*     topping page topping list     */
 
 .topping-add {
-    position: fixed;
-    bottom: 12px;
-    right: 50%;
+    margin: 10px 0;
     z-index: 30;
 }
 
+.itemDetails-panel .lower{
+    padding: 20px 35px;
+}
+
 .topping-list {
+    padding: 5px;
     display: flex;
     flex-direction: column;        /* 一列，每个配料一行 */
 }
