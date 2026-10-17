@@ -286,6 +286,7 @@ const views = {
     checkout: {
         actionText: "Place order",
         render: () => `<h2>Checkout</h2><div id="checkoutList"></div>`,
+        afterRender: showOrderList,
         onAction: placeOrder
     }
 }
@@ -333,11 +334,17 @@ toppingPage.addEventListener("click", e => {
 
 //calculate order quantity
 function calcQuantity(){
-    const existing = cart.find(item => item.name === chosenProduct.name);
+    const selected = [...document.querySelectorAll('.topping-check:checked')]
+        .map(box => chooseToppingList[box.value]);
+
+    const toppKey = selected.map(t => t.name).join(',');
+
+    const existing = cart.find(item => item.name === chosenProduct.name &&  (item.extraTopp || []).map(t => t.name).join(',') === toppKey);
+
     if(existing){
         existing.qty++;
     }else{
-        cart.push({...chosenProduct, qty: 1});
+        cart.push({...chosenProduct, extraTopp: selected, qty: 1});
     }
     updateCardButton();
     console.log("Cart: ", cart);
@@ -377,8 +384,26 @@ main.addEventListener("click", e => {
     }
 });
 
+function showOrderList() {
+    document.getElementById("checkoutList").innerHTML = cart.map((item, index) => `
+        <div class="product-grid">
+        <div class="order-item" data-index="${index}">
+            <img class="order-item-img" src="${item.image}">
+            <div class="order-item-info">
+                <h3 class="order-item-name">${item.name}</h3>
+                <span class="order-item-price">${item.price}</span>
+                <p class="extra-ingredient">Extra topping: ${item.extraTopp.map(t => t.name).join(', ')}</p>
+            </div>
+            <span class="order-item-qty">x${item.qty}</span>
+        </div>
+        </div>
+    `).join('');
+}
+
 function completeCycle() {
     console.log("Customer has complete an order!");
+    //hide all subpage
+    //clear all data: viewCart amount, and all necessary variables
 }
 
 //initiate page calling method
