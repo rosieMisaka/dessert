@@ -1,3 +1,5 @@
+//User pass
+const CLEAN_PASSWORD = "8886";
 //intro-------------------------------------------------
 const intro = document.getElementById("intro");
 
@@ -15,37 +17,37 @@ const categoryData = {
         products: [
             {
                 name: "Rice Balls Brown Sugar",
-                price: "$12.75",
+                price: 12.75,
                 description: "Glutinous rice balls sesame, floating rice cake, taro balls, sago, brown sugar.",
                 image: "img/product/1.jpg"
             },
             {
                 name: "Coconut Watermelon & Taro Balls",
-                price: "$11.25",
+                price: 11.25,
                 description: "Watermelon, taro balls, sago, and coconut milk.",
                 image: "img/product/1.jpg"
             },
             {
                 name: "Coconut Grass Jelly & Taro Balls",
-                price: "$10.75",
+                price: 10.75,
                 description: "Grass jelly, sago, taro balls, and coconut milk.",
                 image: "img/product/1.jpg"
             },
             {
                 name: "Fig Jelly Watermelon Brown Sugar",
-                price: "$13.25",
+                price: 13.25,
                 description: "Fig jelly, watermelon, taro balls, chia seed, and brown sugar.",
                 image: "img/product/1.jpg"
             },
             {
                 name: "Milk Tea Grass Jelly",
-                price: "$10.99",
+                price: 10.99,
                 description: "Grass jelly, tapioca, sago, and black milk tea.",
                 image: "img/product/1.jpg"
             },
             {
                 name: "Coconut Milk Taro Sago",
-                price: "$9.50",
+                price: 9.50,
                 description: "Taro, sago, and coconut milk.",
                 image: "img/product/1.jpg"
             }
@@ -58,43 +60,43 @@ const categoryData = {
         itemDetailsDisplay: "Yes",
         products: [{
             name: "Watermelon Coconut Grass Jelly",
-            price: "$16.50",
+            price: 16.50,
             description: "Grass jelly, watermelon, coconut pudding, sago, taro balls, and coconut milk.",
             image: "img/product/1.jpg"
         },
             {
                 name: "Coconut Taro Sago",
-                price: "$15.99",
+                price: 15.99,
                 description: "Taro, taro balls, sago, floating rice cake, and coconut milk.",
                 image: "img/product/1.jpg"
             },
             {
                 name: "Cassava Coconut Grass Jelly",
-                price: "$16.99",
+                price: 16.99,
                 description: "Grass jelly, cassava, taro balls, sago, red bean, peanuts, and coconut milk.",
                 image: "img/product/1.jpg"
             },
             {
                 name: "Cassava Coconut Mochi Grass Jelly",
-                price: "$17.50",
+                price: 17.50,
                 description: "Grass jelly, cassava, coconut mochi, taro balls, and coconut milk.",
                 image: "img/product/1.jpg"
             },
             {
                 name: "Coconut Taro & Purple Mix",
-                price: "$17.25",
+                price: 17.25,
                 description: "Taro, purple sticky rice, glutinous rice balls sesame, sago, taro balls, and coconut milk.",
                 image: "img/product/1.jpg"
             },
             {
                 name: "Banana Coconut Mochi",
-                price: "$17.75",
+                price: 17.75,
                 description: "Coconut mochi, banana, taro balls, sago, red bean, and coconut milk.",
                 image: "img/product/1.jpg"
             },
             {
                 name: "Coconut Rainbow Mixed Balls",
-                price: "$16.99",
+                price: 16.99,
                 description: "Taro balls, glutinous rice balls sesame, floating rice cake, tapioca, popo, sago, and coconut milk.",
                 image: "img/product/1.jpg"
             }
@@ -108,19 +110,19 @@ const categoryData = {
         products: [
             {
                 name: "Grass Jelly Rice Balls Brown Sugar",
-                price: "$16.99",
+                price: 16.99,
                 description: "Grass jelly, glutinous rice balls sesame, floating rice cake, and brown sugar.",
                 image: "img/product/1.jpg"
             },
             {
                 name: "Taro & Coconut Mochi Brown Sugar",
-                price: "$17.25",
+                price: 17.25,
                 description: "Taro, coconut mochi, taro balls, sago, and brown sugar.",
                 image: "img/product/1.jpg"
             },
             {
                 name: "Cassava & Mixed Balls Brown Sugar",
-                price: "$17.25",
+                price: 17.25,
                 description: "Cassava, glutinous rice balls sesame, floating rice cake, taro balls, sago and brown sugar.",
                 image: "img/product/1.jpg"
             }
@@ -134,19 +136,19 @@ const categoryData = {
         products: [
             {
                 name: "Grass Jelly Cassava Mixed Balls",
-                price: "$18.25",
+                price: 18.25,
                 description: "Grass jelly, cassava, glutinous rice balls(sesame), floating rice balls, sago, taro balls, and black milk tea.",
                 image: "img/product/1.jpg"
             },
             {
                 name: "Grass Jelly Taro Coconut Pudding Bowl",
-                price: "$17.50",
+                price: 17.50,
                 description: "Grass jelly, taro, coconut pudding, taro balls, and black milk tea.",
                 image: "img/product/1.jpg"
             },
             {
                 name: "Grass jelly Cassava Milk Tea Bowl",
-                price: "$16.99",
+                price: 16.99,
                 description: "Grass jelly, cassava, taro balls, sago, red bean, peanuts, and black milk tea.",
                 image: "img/product/1.jpg"
             }
@@ -160,7 +162,7 @@ const categoryData = {
         products: [
             {
                 name: "Crystal Snow Fungus Desserts Bowl (16oz)",
-                price: "$12.99",
+                price: 12.99,
                 description: "Snow fungus, Chinese red date and Chinese goji berry, rock sugar.",
                 image: "img/product/1.jpg"
             }
@@ -174,7 +176,7 @@ const categoryData = {
         products: [
             {
                 name: "Sago",
-                price: "+$2.75",
+                price: 2.75,
                 description: "",
                 image: "img/product/1.jpg"
             }
@@ -219,7 +221,7 @@ function showCategory(catId) {
 
                     <div class="product-info">
                         <h3>${product.name}</h3>
-                        <p class="p-price">${product.price}</p>
+                        <p class="p-price">$${product.price.toFixed(2)}</p>
                         <p class="p-description">${product.description}</p>
                     </div>
                     
@@ -391,7 +393,7 @@ function showOrderList() {
             <img class="order-item-img" src="${item.image}">
             <div class="order-item-info">
                 <h3 class="order-item-name">${item.name}</h3>
-                <span class="order-item-price">${item.price}</span>
+                <span class="order-item-price">$${item.price.toFixed(2)}</span>
                 <p class="extra-ingredient">Extra topping: ${item.extraTopp.map(t => t.name).join(', ')}</p>
             </div>
             <span class="order-item-qty">x${item.qty}</span>
@@ -402,10 +404,137 @@ function showOrderList() {
 
 function completeCycle() {
     console.log("Customer has complete an order!");
+    sendActiveOrder();
+    cart.length = 0;
+    updateCardButton();
+    closePanel();
     //hide all subpage
     //clear all data: viewCart amount, and all necessary variables
 }
 
+const activeOrderPage = document.getElementById("active-order");
+
+function switchPageMode(name) {
+    main.classList.toggle("hidden", name !== "home");
+    activeOrderPage.classList.toggle("hidden", name !== "active-order");
+
+    if (name === "active-order") {
+        renderActiveOrders();
+    }
+}
+
+document.querySelector(".ownerPage-btn").addEventListener("click", () => {
+    switchPageMode("active-order");
+});
+
+document.querySelector(".customer-btn").addEventListener("click", () => {
+    switchPageMode("home");
+});
+
+// *****    local storage functions     *****
+const ORDERS_KEY = "orders";
+
+// 从 localStorage 读出所有订单
+function loadOrders() {
+    try {
+        return JSON.parse(localStorage.getItem(ORDERS_KEY)) || [];
+    } catch (e) {
+        return [];
+    }
+}
+
+// 把订单数组写回 localStorage
+function saveOrders(orders) {
+    localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
+}
+
+function sendActiveOrder() {
+    if (cart.length === 0) return;
+
+    const total = cart.reduce((sum, item) => {
+        const price = item.price;
+        const toppings = (item.extraTopp || []).reduce((s, t) => s + t.price, 0);
+        return sum + (item.price + toppings) * item.qty;
+    }, 0);
+
+    const order = {
+        customerName: "Rosie", //这里需要让用户有地方写自己的名字
+        time: new Date().toLocaleString(),
+        items: cart.map(item => ({
+            name: item.name,
+            price: item.price,
+            qty: item.qty,
+            extraTopp: (item.extraTopp || []).map(t => ({
+                name: t.name,
+                price: t.price
+            }))
+        })), // 深拷贝，清空 cart 不会影响订单
+        total: Math.round(total * 100) / 100,
+        status: "active"
+    };
+
+    const orders = loadOrders();
+    orders.push(order);
+    saveOrders(orders);
+}
+
+
+function renderActiveOrders() {
+    const list = document.getElementById("orderList");
+    const orders = loadOrders();
+
+    if (orders.length === 0) {
+        list.innerHTML = `<p class="no-order">No orders yet.</p>`;
+        return;
+    }
+
+    // 新订单排前面
+    list.innerHTML = [...orders].reverse().map(order => `
+        <div class="order-card" data-id="${order.customerName}">
+            <div class="order-card-head">
+                <span class="order-card-name">Customer: ${order.customerName}</span>
+                <span class="order-card-time">${order.time}</span>
+            </div>
+
+            <div class="order-card-items">
+                ${order.items.map(item => `
+                    <div class="order-card-item">
+                        <div class="order-card-line">
+                            <span>${item.name} x${item.qty}</span>
+                            <span>$${item.price.toFixed(2)}</span>
+                        </div>
+                        ${item.extraTopp.length > 0 ? `
+                            <p class="extra-ingredient">
+                                Extra topping: ${item.extraTopp.map(t => t.name).join(', ')}
+                            </p>
+                        ` : ''}
+                    </div>
+                `).join('')}
+            </div>
+
+            <div class="order-card-foot">
+                <span class="order-card-status">${order.status}</span>
+                <span class="order-card-total">Total: $${order.total.toFixed(2)}</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+//clear all order history
+
+document.querySelector(".clean-storage").addEventListener("click", () => {
+    const input = prompt("Enter password to clear all orders:");
+
+    if (input === null) return;              // 点了取消
+
+    if (input !== CLEAN_PASSWORD) {
+        alert("Wrong password.");
+        return;
+    }
+
+    localStorage.removeItem(ORDERS_KEY);
+    renderActiveOrders();
+});
 //initiate page calling method
 updateCardButton();
 showCategory(activeCat);

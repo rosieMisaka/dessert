@@ -52,7 +52,7 @@ html, body {
 }
 
 /*******    main page   *******/
-#home {
+#home, #order {
     /*min-height: 100vh;*/
     height: 100%;
     display: flex;
@@ -60,15 +60,20 @@ html, body {
     background: var(--global-bg);
 }
 /*main page header*/
-#home header{
+#home header, #active-order header{
     display: flex;
     flex-direction: row;
-    padding: 5px;
+    padding: 15px;
     border-bottom: 1px solid #e2ded4;
 }
 
-.ownerPage-btn {
+.ownerPage-btn, .customer-btn {
     margin-right: 10px;
+}
+
+.customer-btn, .ownerPage-btn {
+    background-color: transparent;
+    border: none;
 }
 
 /*cPage*/
@@ -343,4 +348,38 @@ html, body {
     width: 20px;
     height: 20px;
     cursor: pointer;
+}
+
+/*active order page*/
+.active-order-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+}
+
+.order-card {
+    border: 1px solid #e2ded4;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.order-card-head,
+.order-card-line,
+.order-card-foot {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-card-head {
+    border-bottom: 1px solid #e2ded4;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+}
+
+.order-card-foot {
+    border-top: 1px solid #e2ded4;
+    padding-top: 8px;
+    margin-top: 8px;
+    font-weight: bold;
 }
