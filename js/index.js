@@ -17,39 +17,39 @@ const categoryData = {
         products: [
             {
                 name: "Rice Balls Brown Sugar",
-                price: 12.75,
+                price: 10.25,
                 description: "Glutinous rice balls sesame, floating rice cake, taro balls, sago, brown sugar.",
-                image: "img/product/1.jpg"
+                image: "img/product/Rice Balls Brown Sugar.png"
             },
             {
                 name: "Coconut Watermelon & Taro Balls",
-                price: 11.25,
+                price: 8.99,
                 description: "Watermelon, taro balls, sago, and coconut milk.",
-                image: "img/product/1.jpg"
+                image: "img/product/Coconut Watermelon & Taro Balls.png"
             },
             {
                 name: "Coconut Grass Jelly & Taro Balls",
-                price: 10.75,
+                price: 9.50,
                 description: "Grass jelly, sago, taro balls, and coconut milk.",
-                image: "img/product/1.jpg"
+                image: "img/product/Coconut Grass Jelly & Taro Balls.png"
             },
             {
                 name: "Fig Jelly Watermelon Brown Sugar",
-                price: 13.25,
+                price: 10.75,
                 description: "Fig jelly, watermelon, taro balls, chia seed, and brown sugar.",
-                image: "img/product/1.jpg"
+                image: "img/product/Fig Jelly Watermelon Brown Sugar.png"
             },
             {
-                name: "Milk Tea Grass Jelly",
-                price: 10.99,
+                name: "Camellia Milk Tea Grass Jelly",
+                price: 8.75,
                 description: "Grass jelly, tapioca, sago, and black milk tea.",
-                image: "img/product/1.jpg"
+                image: "img/product/Camellia Milk Tea Grass Jelly.png"
             },
             {
                 name: "Coconut Milk Taro Sago",
-                price: 9.50,
+                price: 7.75,
                 description: "Taro, sago, and coconut milk.",
-                image: "img/product/1.jpg"
+                image: "img/product/Coconut Milk Taro Sago.png"
             }
         ]
     },
@@ -304,6 +304,8 @@ function openPanel(viewName) {
     btn.textContent = v.actionText;
     btn.onclick = v.onAction;
     toppingPage.classList.remove("hidden");
+    main.classList.add("no-scroll");
+    document.querySelector(".itemDetails-panel").scrollTop = 0;
 
     document.querySelector(".itemDetails-panel").scrollTop = 0;
 }
@@ -312,6 +314,7 @@ function openPanel(viewName) {
 //listener for topping page display - addToCard/X button
 function closePanel() {
     toppingPage.classList.add("hidden");
+    main.classList.remove("no-scroll");
 }
 
 function addToCart() {

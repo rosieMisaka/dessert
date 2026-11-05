@@ -67,6 +67,10 @@ html, body {
     border-bottom: 1px solid #e2ded4;
 }
 
+#home.no-scroll .category-content {
+    overflow: hidden; !important;
+}
+
 .ownerPage-btn, .customer-btn {
     margin-right: 10px;
 }
@@ -246,6 +250,7 @@ html, body {
     border-radius: 30px 30px 0 0;
     background: var(--global-bg);
     overflow-y: auto;
+    overscroll-behavior: contain;
 }
 
 .itemDetails-panel h2 {
