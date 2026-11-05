@@ -12,7 +12,7 @@ intro.addEventListener("click", () => {
 const categoryData = {
     c1: {
         title: "Classic Dessert Bowls",
-        description: "Top sale products...",
+        description: "(All food items may Contain Dairy, Peanuts, Tree Nuts, Sesame, Barley and other allergens.)",
         itemDetailsDisplay: "No",
         products: [
             {
