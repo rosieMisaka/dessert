@@ -62,8 +62,10 @@ html, body {
 /*main page header*/
 #home header, #active-order header{
     display: flex;
-    flex-direction: row;
-    padding: 15px;
+    /*flex-direction: row;*/
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
     border-bottom: 1px solid #e2ded4;
 }
 
@@ -71,11 +73,17 @@ html, body {
     overflow: hidden; !important;
 }
 
-.ownerPage-btn, .customer-btn {
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap:40px;
+}
+
+.ownerPage-btn, .customer-btn, .language, .clean-storage {
     margin-right: 10px;
 }
 
-.customer-btn, .ownerPage-btn {
+.customer-btn, .ownerPage-btn, .language, .clean-storage {
     background-color: transparent;
     border: none;
 }

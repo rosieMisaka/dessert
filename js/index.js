@@ -14,6 +14,7 @@ const categoryData = {
         title: "Classic Dessert Bowls",
         description: "(All food items may Contain Dairy, Peanuts, Tree Nuts, Sesame, Barley and other allergens.)",
         itemDetailsDisplay: "No",
+        base: ["Coconut Milk", "Brown Sugar", "Black Milk Tea"],
         products: [
             {
                 name: "Rice Balls Brown Sugar",
@@ -56,101 +57,110 @@ const categoryData = {
 
     c2: {
         title: "Coconut Milk Dessert Bowls",
-        description: "Coconut milk products...",
+        description: "(All food items may Contain Dairy, Peanuts, Tree Nuts, Sesame, Barley and other allergens.)",
         itemDetailsDisplay: "Yes",
+        base: ["Coconut Milk"],
         products: [{
             name: "Watermelon Coconut Grass Jelly",
-            price: 16.50,
+            price: 12.99,
             description: "Grass jelly, watermelon, coconut pudding, sago, taro balls, and coconut milk.",
-            image: "img/product/1.jpg"
+            image: "img/product/Watermelon Coconut Grass Jelly.png"
         },
             {
-                name: "Coconut Taro Sago",
-                price: 15.99,
+                name: "Coconut Taro Taro Sago",
+                price: 12.99,
                 description: "Taro, taro balls, sago, floating rice cake, and coconut milk.",
-                image: "img/product/1.jpg"
+                image: "img/product/Coconut Taro Taro Sago.png"
             },
             {
                 name: "Cassava Coconut Grass Jelly",
-                price: 16.99,
+                price: 13.50,
                 description: "Grass jelly, cassava, taro balls, sago, red bean, peanuts, and coconut milk.",
-                image: "img/product/1.jpg"
+                image: "img/product/Cassava Coconut Grass Jelly.png"
             },
             {
                 name: "Cassava Coconut Mochi Grass Jelly",
-                price: 17.50,
+                price: 14.25,
                 description: "Grass jelly, cassava, coconut mochi, taro balls, and coconut milk.",
-                image: "img/product/1.jpg"
+                image: "img/product/Cassava Coconut Mochi Grass Jelly.png"
             },
             {
                 name: "Coconut Taro & Purple Mix",
-                price: 17.25,
-                description: "Taro, purple sticky rice, glutinous rice balls sesame, sago, taro balls, and coconut milk.",
-                image: "img/product/1.jpg"
+                price: 13.99,
+                description: "Taro, purple sticky rice, glutinous rice balls (sesame), sago, taro balls, and coconut milk.",
+                image: "img/product/Coconut Taro & Purple Mix.png"
             },
             {
                 name: "Banana Coconut Mochi",
-                price: 17.75,
+                price: 14.25,
                 description: "Coconut mochi, banana, taro balls, sago, red bean, and coconut milk.",
-                image: "img/product/1.jpg"
+                image: "img/product/Banana Coconut Mochi.png"
             },
             {
                 name: "Coconut Rainbow Mixed Balls",
-                price: 16.99,
-                description: "Taro balls, glutinous rice balls sesame, floating rice cake, tapioca, popo, sago, and coconut milk.",
-                image: "img/product/1.jpg"
+                price: 13.25,
+                description: "Taro balls, glutinous rice balls (sesame), floating rice cake, tapioca, popo, sago, and coconut milk.",
+                image: "img/product/Coconut Rainbow Mixed Balls.png"
             }
         ]
     },
 
     c3: {
         title: "Brown Sugar Dessert Bowls",
-        description: "Brown sugar products...",
+        description: "(All food items may Contain Dairy, Peanuts, Tree Nuts, Sesame, Barley and other allergens.)",
         itemDetailsDisplay: "Yes",
+        base: ["Brown Sugar"],
         products: [
             {
                 name: "Grass Jelly Rice Balls Brown Sugar",
-                price: 16.99,
-                description: "Grass jelly, glutinous rice balls sesame, floating rice cake, and brown sugar.",
-                image: "img/product/1.jpg"
+                price: 13.99,
+                description: "Grass jelly, glutinous rice balls (sesame), floating rice cake, and brown sugar.",
+                image: "img/product/Grass Jelly Rice Balls Brown Sugar.png"
             },
             {
                 name: "Taro & Coconut Mochi Brown Sugar",
-                price: 17.25,
+                price: 14.25,
                 description: "Taro, coconut mochi, taro balls, sago, and brown sugar.",
-                image: "img/product/1.jpg"
+                image: "img/product/Taro & Coconut Mochi Brown Sugar.png"
             },
             {
                 name: "Cassava & Mixed Balls Brown Sugar",
-                price: 17.25,
-                description: "Cassava, glutinous rice balls sesame, floating rice cake, taro balls, sago and brown sugar.",
-                image: "img/product/1.jpg"
+                price: 14.25,
+                description: "Cassava, glutinous rice balls (sesame), floating rice cake, taro balls, sago and brown sugar.",
+                image: "img/product/Cassava & Mixed Balls Brown Sugar.png"
             }
         ]
     },
 
     c4: {
-        title: "Black Milk Tea Dessert Bowls",
-        description: "Black milk tea products...",
+        title: "Camellia Milk Tea Dessert Bowls",
+        description: "(All food items may Contain Dairy, Peanuts, Tree Nuts, Sesame, Barley and other allergens.)",
         itemDetailsDisplay: "Yes",
+        base: ["Camellia Milk Tea"],
         products: [
             {
-                name: "Grass Jelly Cassava Mixed Balls",
-                price: 18.25,
+                name: "Grass Jelly Cassava & Mixed Balls",
+                price: 14.99,
                 description: "Grass jelly, cassava, glutinous rice balls(sesame), floating rice balls, sago, taro balls, and black milk tea.",
-                image: "img/product/1.jpg"
+                image: "img/product/Grass Jelly Cassava & Mixed Balls.png"
             },
             {
                 name: "Grass Jelly Taro Coconut Pudding Bowl",
-                price: 17.50,
+                price: 14.25,
                 description: "Grass jelly, taro, coconut pudding, taro balls, and black milk tea.",
-                image: "img/product/1.jpg"
+                image: "img/product/Grass Jelly Taro Coconut Pudding Bowl.png"
             },
             {
-                name: "Grass jelly Cassava Milk Tea Bowl",
-                price: 16.99,
-                description: "Grass jelly, cassava, taro balls, sago, red bean, peanuts, and black milk tea.",
-                image: "img/product/1.jpg"
+                name: "Grass Jelly Cassava with Camellia Milk Tea",
+                price: 13.50,
+                description: "Grass Jelly, Cassava, Taro Balls, Sago, Red Bean, Peanuts, and Camellia Milk Tea.",
+                image: "img/product/Grass Jelly Cassava with Camellia Milk Tea.png"
+            },
+            {
+                name: "Banana Mochi with Camellia Milk Tea",
+                price: 14.75,
+                description: "Coconut Mochi, Banana, Taro Balls, Tapioca, Floating Rice Balls, and Camellia Milk Tea.",
+                image: "img/product/Banana Mochi with Camellia Milk Tea.png"
             }
         ]
     },
@@ -159,25 +169,52 @@ const categoryData = {
         title: "Crystal Snow Fungus Dessert Bowls",
         description: "Crystal snow fungus products...",
         itemDetailsDisplay: "Yes",
+        base: ["Plain Coconut Milk"],
         products: [
             {
-                name: "Crystal Snow Fungus Desserts Bowl (16oz)",
-                price: 12.99,
-                description: "Snow fungus, Chinese red date and Chinese goji berry, rock sugar.",
-                image: "img/product/1.jpg"
+                name: "Traditional Snow Fungus Sweet Soup",
+                price: 10.50,
+                description: "Snow Fungus, Chinese Red Dates, Goji Berries and Rock Sugar. Served with Ice. \n" +
+                    "<br><br>Snow fungus is a soft, gelatinous Asian fungus with a mild, delicate flavour. Chinese red dates bring natural sweetness, goji berries add a subtle fruity note. This nourishing sweet soup has a lightly sweet taste and smooth, tender gelatinous texture.)",
+                image: "img/product/Traditional Snow Fungus Sweet Soup.png"
+            },
+            {
+                name: "Grass Jelly Watermelon with Snow Fungus",
+                price: 14.75,
+                description: "Grass Jelly, Watermelon, Sago, Floating Rice Cake, Traditional Snow Fungus Sweet Soup",
+                image: "img/product/NO.jpg"
+            },
+            {
+                name: "Grass Jelly Cassava with Snow Fungus",
+                price: 15.50,
+                description: "Grass Jelly, Cassava, Sago, Barley, and Traditional Snow Fungus Sweet Soup",
+                image: "img/product/NO.jpg"
+            },
+            {
+                name: "Taro Taro Snow Fungus",
+                price: 15.50,
+                description: "Taro, Taro Balls, Sago, Barley, Traditional Snow Fungus Sweet Soup, and Plain Coconut Milk",
+                image: "img/product/Taro Taro Snow Fungus.png"
+            },
+            {
+                name: "Banana Barley with Snow Fungus",
+                price: 14.50,
+                description: "Banana, Barley, Taro Balls, Traditional Snow Fungus Sweet Soup, and Plain Coconut Milk",
+                image: "img/product/NO.jpg"
             }
         ]
     },
 
     c6: {
         title: "Custom Your Own Dessert Bowls",
-        description: "Create your own dessert bowl by selecting adds-on, choose between 4 and 10.",
+        description: "New to build-your-own? Try our pre-set signature dessert bowls for a quick & delicious pick!",
         itemDetailsDisplay: "Yes",
+        base: ["Coconut Milk", "Brown Sugar", "Black Milk Tea"],
         products: [
             {
-                name: "Sago",
-                price: 2.75,
-                description: "",
+                name: "Custom Your Own Bowl",
+                price: 0.00,
+                description: "Create your own dessert bowl by selecting adds-on, choose between 4 and 10.",
                 image: "img/product/1.jpg"
             }
         ]
@@ -185,19 +222,15 @@ const categoryData = {
 };
 
 const chooseToppingList = [
-    { name: "Coconut Jelly", price: 1.85 },
-    { name: "Tapioca", price: 1.85 },
-    { name: "Popo", price: 1.85 },
-    { name: "Red Bean", price: 1.85 },
-    { name: "Raisins", price: 1.85 },
-    { name: "Chia Seed", price: 1.85 },
-    { name: "Peanut", price: 1.85 },
-    { name: "Cereal Flakes", price: 1.85 },
-    { name: "Coconut Milk (4oz)", price: 2.99 },
-    { name: "Chia Seed", price: 1.85 },
-    { name: "Peanut", price: 1.85 },
-    { name: "Cereal Flakes", price: 1.85 },
-    { name: "Coconut Milk (4oz)", price: 2.99 }
+    { name: "Coconut Jelly", price: 1.25 },
+    { name: "Tapioca", price: 1.25 },
+    { name: "Popo", price: 1.25 },
+    { name: "Red Bean", price: 1.25 },
+    { name: "Raisins", price: 1.25 },
+    { name: "Chia Seed", price: 1.25 },
+    { name: "Peanut", price: 1.25 },
+    { name: "Cereal Flakes", price: 1.25 },
+    { name: "Coconut Milk", price: 2.75 },
 ];
 
 //Category page initiate category content page data
