@@ -79,6 +79,8 @@ html, body {
     gap:40px;
 }
 
+/*header button css*/
+
 .ownerPage-btn, .customer-btn, .language, .clean-storage {
     margin-right: 10px;
 }
