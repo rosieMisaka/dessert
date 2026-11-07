@@ -8,36 +8,55 @@ intro.addEventListener("click", () => {
     intro.classList.add("hide");
 });
 
+//language default
+let lang = localStorage.getItem("lang") || "en";   // 默认英文
+let currentCat = null;                             // 记住当前分类，切换语言时重新渲染
+
+// 有中文就用中文，没有就回退英文
+function L(obj, field) {
+    // console.log("L called:", obj, field);
+    // console.log("lang =", lang, "| zh字段 =", obj[field + "_zh"]);
+    return (lang === "zh" && obj[field + "_zh"]) || obj[field];
+}
+
 //Category content page Data-----------------
 const categoryData = {
     c1: {
         title: "Classic Dessert Bowls",
+        title_zh: "经典甜品碗",
         description: "(All food items may Contain Dairy, Peanuts, Tree Nuts, Sesame, Barley and other allergens.)",
+        description_zh: "（所有食品可能含有乳制品、花生、坚果、芝麻、大麦及其他过敏原。）",
         itemDetailsDisplay: "No",
         base: ["Coconut Milk", "Brown Sugar", "Black Milk Tea"],
         products: [
             {
                 name: "Rice Balls Brown Sugar",
+                name_zh: "黑糖汤圆",
                 price: 10.25,
                 description: "Glutinous rice balls sesame, floating rice cake, taro balls, sago, brown sugar.",
+                description_zh: "芝麻汤圆、浮水年糕、芋圆、西米、黑糖。",
                 image: "img/product/Rice Balls Brown Sugar.png"
             },
             {
                 name: "Coconut Watermelon & Taro Balls",
+                name_zh: "椰乳西瓜芋圆",
                 price: 8.99,
                 description: "Watermelon, taro balls, sago, and coconut milk.",
+                description_zh: "西瓜，芋圆，西米，和椰乳",
                 image: "img/product/Coconut Watermelon & Taro Balls.png"
             },
             {
                 name: "Coconut Grass Jelly & Taro Balls",
                 price: 9.50,
                 description: "Grass jelly, sago, taro balls, and coconut milk.",
+                description_zh: "仙草，西米，芋圆，和椰乳",
                 image: "img/product/Coconut Grass Jelly & Taro Balls.png"
             },
             {
                 name: "Fig Jelly Watermelon Brown Sugar",
                 price: 10.75,
                 description: "Fig jelly, watermelon, taro balls, chia seed, and brown sugar.",
+                description_zh: "爱玉冻，西瓜，芋圆，奇亚籽，和红糖",
                 image: "img/product/Fig Jelly Watermelon Brown Sugar.png"
             },
             {
@@ -238,24 +257,27 @@ const content = document.getElementById("cPage");
 const main = document.getElementById("home");
 
 function showCategory(catId) {
+    // console.log("showCategory called with:", catId);
+    currentCat = catId;
+    // console.log("currentCat set to:", currentCat);
 
     const data = categoryData[catId];
 
     content.innerHTML = `
         <div class="cPage-head">
-            <h2 class="cPage-title">${data.title}</h2>
-            <p class="cPage-dsp">${data.description}</p>
+            <h2 class="cPage-title">${L(data, "title")}</h2>
+            <p class="cPage-dsp">${L(data, "description")}</p>
        </div>
         
         <div class="product-grid">
             ${data.products.map((product, index) => `
                 <div class="product-row">
-                    <img src="${product.image}" alt="${product.name}">
+                    <img src="${product.image}" alt="${L(product, "name")}">
 
                     <div class="product-info">
-                        <h3>${product.name}</h3>
+                        <h3>${L(product, "name")}</h3>
                         <p class="p-price">$${product.price.toFixed(2)}</p>
-                        <p class="p-description">${product.description}</p>
+                        <p class="p-description">${L(product, "description")}</p>
                     </div>
                     
                     <button class="add-button" data-index="${index}">+</button>
@@ -571,6 +593,56 @@ document.querySelector(".clean-storage").addEventListener("click", () => {
     localStorage.removeItem(ORDERS_KEY);
     renderActiveOrders();
 });
+
+
+//click to check larger img
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const closeBtn = document.getElementById('lightbox-close');
+
+content.addEventListener('click', (e) => {
+    const img = e.target.closest('.product-row img');
+    if(!img) return;
+
+    updateLightboxLeft();
+    lightboxImg.src = img.src;
+    lightbox.classList.add('show');
+})
+
+function closeLightBox() {
+    lightbox.classList.remove('show');
+    lightboxImg.src = '';
+}
+
+closeBtn.addEventListener('click', closeLightBox);
+
+//resizing the lightbox when width of the window changed
+const menu = document.getElementById('category');
+
+function updateLightboxLeft() {
+    lightbox.style.left = menu.getBoundingClientRect().right + 'px';
+}
+
+window.addEventListener('resize', () => {
+    if (lightbox.classList.contains('show')) updateLightboxLeft();
+});
+
+//click to switch language
+document.addEventListener('click', (e) => {
+    const langBtn = e.target.closest('.language');
+    if(!langBtn) return;
+
+    const span = langBtn.querySelector('span');
+    lang = (lang === "en") ? "zh" : "en";
+    console.log("lang is: ",lang);
+    localStorage.setItem("lang", lang);
+
+    span.textContent = (lang === "en") ? "English" : "简体中文";
+
+    if (currentCat) showCategory(currentCat);
+})
+
+
 //initiate page calling method
 updateCardButton();
 showCategory(activeCat);
