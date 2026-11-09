@@ -217,7 +217,7 @@ html, body {
 /* view cart button*/
 .viewCart {
     position: fixed;
-    top: 70px;
+    top: 60px;
     right: 16px;
     z-index: 30;
 
@@ -274,10 +274,22 @@ html, body {
     background: var(--global-bg);
     overflow-y: auto;
     overscroll-behavior: contain;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/*.expand-content[hidden] {*/
+/*    display: none;*/
+/*}*/
+
+
+#sauceRow {
+    padding-left: 45px;
 }
 
 .itemDetails-panel h2 {
-    margin-bottom: 5px;
+    margin: 10px 0 0 0;
 }
 
 .itemDetails-panel p {
@@ -285,10 +297,23 @@ html, body {
 }
 
 .itemDetails-panel .upper {
-    padding: 10px 0;
+    padding: 12px 30px;
     border-bottom: 1px solid #525252;
     position: sticky;
     top: 0;
+    background: var(--global-bg);
+
+    display: flex;
+    justify-content: flex-start;
+}
+
+.itemDetails-panel .bottom {
+    margin-top: auto;
+    flex-shrink: 0;
+    padding: 45px 0;
+    border-top: 1px solid #525252;
+    position: sticky;
+    bottom: 0;
     background: var(--global-bg);
 
     display: flex;
@@ -454,4 +479,21 @@ html, body {
     font-size: 22px;
     line-height: 32px;
     cursor: pointer;
+}
+
+/*name input page for checkout*/
+#nameInput {
+    border: none;
+    border-bottom: 1px solid #525252;
+    outline: none;
+    background: transparent;
+    font-size: 22px;
+    width: 45%;
+    min-width: 0;
+    color: #b3ada0;
+    margin-top: 20px;
+}
+
+#nameInput::placeholder {
+    color: #b3ada0;
 }

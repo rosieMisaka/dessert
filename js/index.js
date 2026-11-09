@@ -6,13 +6,22 @@ const intro = document.getElementById("intro");
 //listener for intro page
 intro.addEventListener("click", () => {
     intro.classList.add("hide");
+    console.log("Now the activeCat is: ",activeCat);
+    showCategory(activeCat);
+    //set category menu to default
+    document.querySelectorAll('.cat').forEach(c => {
+        c.classList.remove('active');
+    });
+    const btn = document.querySelector('[data-cat="c1"]');
+    btn.classList.add("active");
+
+    updateCardButton();
 });
 
 //language default
-let lang = localStorage.getItem("lang") || "en";   // 默认英文
-let currentCat = null;                             // 记住当前分类，切换语言时重新渲染
+let lang = localStorage.getItem("lang") || "en";
+let currentCat = null;
 
-// 有中文就用中文，没有就回退英文
 function L(obj, field) {
     // console.log("L called:", obj, field);
     // console.log("lang =", lang, "| zh字段 =", obj[field + "_zh"]);
@@ -27,51 +36,44 @@ const categoryData = {
         description: "(All food items may Contain Dairy, Peanuts, Tree Nuts, Sesame, Barley and other allergens.)",
         description_zh: "（所有食品可能含有乳制品、花生、坚果、芝麻、大麦及其他过敏原。）",
         itemDetailsDisplay: "No",
-        base: ["Coconut Milk", "Brown Sugar", "Black Milk Tea"],
-        products: [
-            {
-                name: "Rice Balls Brown Sugar",
-                name_zh: "黑糖汤圆",
-                price: 10.25,
-                description: "Glutinous rice balls sesame, floating rice cake, taro balls, sago, brown sugar.",
-                description_zh: "芝麻汤圆、浮水年糕、芋圆、西米、黑糖。",
-                image: "img/product/Rice Balls Brown Sugar.png"
-            },
-            {
-                name: "Coconut Watermelon & Taro Balls",
-                name_zh: "椰乳西瓜芋圆",
-                price: 8.99,
-                description: "Watermelon, taro balls, sago, and coconut milk.",
-                description_zh: "西瓜，芋圆，西米，和椰乳",
-                image: "img/product/Coconut Watermelon & Taro Balls.png"
-            },
-            {
-                name: "Coconut Grass Jelly & Taro Balls",
-                price: 9.50,
-                description: "Grass jelly, sago, taro balls, and coconut milk.",
-                description_zh: "仙草，西米，芋圆，和椰乳",
-                image: "img/product/Coconut Grass Jelly & Taro Balls.png"
-            },
-            {
-                name: "Fig Jelly Watermelon Brown Sugar",
-                price: 10.75,
-                description: "Fig jelly, watermelon, taro balls, chia seed, and brown sugar.",
-                description_zh: "爱玉冻，西瓜，芋圆，奇亚籽，和红糖",
-                image: "img/product/Fig Jelly Watermelon Brown Sugar.png"
-            },
-            {
-                name: "Camellia Milk Tea Grass Jelly",
-                price: 8.75,
-                description: "Grass jelly, tapioca, sago, and black milk tea.",
-                image: "img/product/Camellia Milk Tea Grass Jelly.png"
-            },
-            {
-                name: "Coconut Milk Taro Sago",
-                price: 7.75,
-                description: "Taro, sago, and coconut milk.",
-                image: "img/product/Coconut Milk Taro Sago.png"
-            }
-        ]
+        base: [],
+        products: [{
+            name: "Rice Balls Brown Sugar",
+            name_zh: "黑糖汤圆",
+            price: 10.25,
+            description: "Glutinous rice balls sesame, floating rice cake, taro balls, sago, brown sugar.",
+            description_zh: "芝麻汤圆、浮水年糕、芋圆、西米、黑糖。",
+            image: "img/product/Rice Balls Brown Sugar.png"
+        }, {
+            name: "Coconut Watermelon & Taro Balls",
+            name_zh: "椰乳西瓜芋圆",
+            price: 8.99,
+            description: "Watermelon, taro balls, sago, and coconut milk.",
+            description_zh: "西瓜，芋圆，西米，和椰乳",
+            image: "img/product/Coconut Watermelon & Taro Balls.png"
+        }, {
+            name: "Coconut Grass Jelly & Taro Balls",
+            price: 9.50,
+            description: "Grass jelly, sago, taro balls, and coconut milk.",
+            description_zh: "仙草，西米，芋圆，和椰乳",
+            image: "img/product/Coconut Grass Jelly & Taro Balls.png"
+        }, {
+            name: "Fig Jelly Watermelon Brown Sugar",
+            price: 10.75,
+            description: "Fig jelly, watermelon, taro balls, chia seed, and brown sugar.",
+            description_zh: "爱玉冻，西瓜，芋圆，奇亚籽，和红糖",
+            image: "img/product/Fig Jelly Watermelon Brown Sugar.png"
+        }, {
+            name: "Camellia Milk Tea Grass Jelly",
+            price: 8.75,
+            description: "Grass jelly, tapioca, sago, and black milk tea.",
+            image: "img/product/Camellia Milk Tea Grass Jelly.png"
+        }, {
+            name: "Coconut Milk Taro Sago",
+            price: 7.75,
+            description: "Taro, sago, and coconut milk.",
+            image: "img/product/Coconut Milk Taro Sago.png"
+        }]
     },
 
     c2: {
@@ -84,44 +86,37 @@ const categoryData = {
             price: 12.99,
             description: "Grass jelly, watermelon, coconut pudding, sago, taro balls, and coconut milk.",
             image: "img/product/Watermelon Coconut Grass Jelly.png"
-        },
-            {
-                name: "Coconut Taro Taro Sago",
-                price: 12.99,
-                description: "Taro, taro balls, sago, floating rice cake, and coconut milk.",
-                image: "img/product/Coconut Taro Taro Sago.png"
-            },
-            {
-                name: "Cassava Coconut Grass Jelly",
-                price: 13.50,
-                description: "Grass jelly, cassava, taro balls, sago, red bean, peanuts, and coconut milk.",
-                image: "img/product/Cassava Coconut Grass Jelly.png"
-            },
-            {
-                name: "Cassava Coconut Mochi Grass Jelly",
-                price: 14.25,
-                description: "Grass jelly, cassava, coconut mochi, taro balls, and coconut milk.",
-                image: "img/product/Cassava Coconut Mochi Grass Jelly.png"
-            },
-            {
-                name: "Coconut Taro & Purple Mix",
-                price: 13.99,
-                description: "Taro, purple sticky rice, glutinous rice balls (sesame), sago, taro balls, and coconut milk.",
-                image: "img/product/Coconut Taro & Purple Mix.png"
-            },
-            {
-                name: "Banana Coconut Mochi",
-                price: 14.25,
-                description: "Coconut mochi, banana, taro balls, sago, red bean, and coconut milk.",
-                image: "img/product/Banana Coconut Mochi.png"
-            },
-            {
-                name: "Coconut Rainbow Mixed Balls",
-                price: 13.25,
-                description: "Taro balls, glutinous rice balls (sesame), floating rice cake, tapioca, popo, sago, and coconut milk.",
-                image: "img/product/Coconut Rainbow Mixed Balls.png"
-            }
-        ]
+        }, {
+            name: "Coconut Taro Taro Sago",
+            price: 12.99,
+            description: "Taro, taro balls, sago, floating rice cake, and coconut milk.",
+            image: "img/product/Coconut Taro Taro Sago.png"
+        }, {
+            name: "Cassava Coconut Grass Jelly",
+            price: 13.50,
+            description: "Grass jelly, cassava, taro balls, sago, red bean, peanuts, and coconut milk.",
+            image: "img/product/Cassava Coconut Grass Jelly.png"
+        }, {
+            name: "Cassava Coconut Mochi Grass Jelly",
+            price: 14.25,
+            description: "Grass jelly, cassava, coconut mochi, taro balls, and coconut milk.",
+            image: "img/product/Cassava Coconut Mochi Grass Jelly.png"
+        }, {
+            name: "Coconut Taro & Purple Mix",
+            price: 13.99,
+            description: "Taro, purple sticky rice, glutinous rice balls (sesame), sago, taro balls, and coconut milk.",
+            image: "img/product/Coconut Taro & Purple Mix.png"
+        }, {
+            name: "Banana Coconut Mochi",
+            price: 14.25,
+            description: "Coconut mochi, banana, taro balls, sago, red bean, and coconut milk.",
+            image: "img/product/Banana Coconut Mochi.png"
+        }, {
+            name: "Coconut Rainbow Mixed Balls",
+            price: 13.25,
+            description: "Taro balls, glutinous rice balls (sesame), floating rice cake, tapioca, popo, sago, and coconut milk.",
+            image: "img/product/Coconut Rainbow Mixed Balls.png"
+        }]
     },
 
     c3: {
@@ -129,26 +124,22 @@ const categoryData = {
         description: "(All food items may Contain Dairy, Peanuts, Tree Nuts, Sesame, Barley and other allergens.)",
         itemDetailsDisplay: "Yes",
         base: ["Brown Sugar"],
-        products: [
-            {
-                name: "Grass Jelly Rice Balls Brown Sugar",
-                price: 13.99,
-                description: "Grass jelly, glutinous rice balls (sesame), floating rice cake, and brown sugar.",
-                image: "img/product/Grass Jelly Rice Balls Brown Sugar.png"
-            },
-            {
-                name: "Taro & Coconut Mochi Brown Sugar",
-                price: 14.25,
-                description: "Taro, coconut mochi, taro balls, sago, and brown sugar.",
-                image: "img/product/Taro & Coconut Mochi Brown Sugar.png"
-            },
-            {
-                name: "Cassava & Mixed Balls Brown Sugar",
-                price: 14.25,
-                description: "Cassava, glutinous rice balls (sesame), floating rice cake, taro balls, sago and brown sugar.",
-                image: "img/product/Cassava & Mixed Balls Brown Sugar.png"
-            }
-        ]
+        products: [{
+            name: "Grass Jelly Rice Balls Brown Sugar",
+            price: 13.99,
+            description: "Grass jelly, glutinous rice balls (sesame), floating rice cake, and brown sugar.",
+            image: "img/product/Grass Jelly Rice Balls Brown Sugar.png"
+        }, {
+            name: "Taro & Coconut Mochi Brown Sugar",
+            price: 14.25,
+            description: "Taro, coconut mochi, taro balls, sago, and brown sugar.",
+            image: "img/product/Taro & Coconut Mochi Brown Sugar.png"
+        }, {
+            name: "Cassava & Mixed Balls Brown Sugar",
+            price: 14.25,
+            description: "Cassava, glutinous rice balls (sesame), floating rice cake, taro balls, sago and brown sugar.",
+            image: "img/product/Cassava & Mixed Balls Brown Sugar.png"
+        }]
     },
 
     c4: {
@@ -156,32 +147,27 @@ const categoryData = {
         description: "(All food items may Contain Dairy, Peanuts, Tree Nuts, Sesame, Barley and other allergens.)",
         itemDetailsDisplay: "Yes",
         base: ["Camellia Milk Tea"],
-        products: [
-            {
-                name: "Grass Jelly Cassava & Mixed Balls",
-                price: 14.99,
-                description: "Grass jelly, cassava, glutinous rice balls(sesame), floating rice balls, sago, taro balls, and black milk tea.",
-                image: "img/product/Grass Jelly Cassava & Mixed Balls.png"
-            },
-            {
-                name: "Grass Jelly Taro Coconut Pudding Bowl",
-                price: 14.25,
-                description: "Grass jelly, taro, coconut pudding, taro balls, and black milk tea.",
-                image: "img/product/Grass Jelly Taro Coconut Pudding Bowl.png"
-            },
-            {
-                name: "Grass Jelly Cassava with Camellia Milk Tea",
-                price: 13.50,
-                description: "Grass Jelly, Cassava, Taro Balls, Sago, Red Bean, Peanuts, and Camellia Milk Tea.",
-                image: "img/product/Grass Jelly Cassava with Camellia Milk Tea.png"
-            },
-            {
-                name: "Banana Mochi with Camellia Milk Tea",
-                price: 14.75,
-                description: "Coconut Mochi, Banana, Taro Balls, Tapioca, Floating Rice Balls, and Camellia Milk Tea.",
-                image: "img/product/Banana Mochi with Camellia Milk Tea.png"
-            }
-        ]
+        products: [{
+            name: "Grass Jelly Cassava & Mixed Balls",
+            price: 14.99,
+            description: "Grass jelly, cassava, glutinous rice balls(sesame), floating rice balls, sago, taro balls, and black milk tea.",
+            image: "img/product/Grass Jelly Cassava & Mixed Balls.png"
+        }, {
+            name: "Grass Jelly Taro Coconut Pudding Bowl",
+            price: 14.25,
+            description: "Grass jelly, taro, coconut pudding, taro balls, and black milk tea.",
+            image: "img/product/Grass Jelly Taro Coconut Pudding Bowl.png"
+        }, {
+            name: "Grass Jelly Cassava with Camellia Milk Tea",
+            price: 13.50,
+            description: "Grass Jelly, Cassava, Taro Balls, Sago, Red Bean, Peanuts, and Camellia Milk Tea.",
+            image: "img/product/Grass Jelly Cassava with Camellia Milk Tea.png"
+        }, {
+            name: "Banana Mochi with Camellia Milk Tea",
+            price: 14.75,
+            description: "Coconut Mochi, Banana, Taro Balls, Tapioca, Floating Rice Balls, and Camellia Milk Tea.",
+            image: "img/product/Banana Mochi with Camellia Milk Tea.png"
+        }]
     },
 
     c5: {
@@ -189,39 +175,32 @@ const categoryData = {
         description: "Crystal snow fungus products...",
         itemDetailsDisplay: "Yes",
         base: ["Plain Coconut Milk"],
-        products: [
-            {
-                name: "Traditional Snow Fungus Sweet Soup",
-                price: 10.50,
-                description: "Snow Fungus, Chinese Red Dates, Goji Berries and Rock Sugar. Served with Ice. \n" +
-                    "<br><br>Snow fungus is a soft, gelatinous Asian fungus with a mild, delicate flavour. Chinese red dates bring natural sweetness, goji berries add a subtle fruity note. This nourishing sweet soup has a lightly sweet taste and smooth, tender gelatinous texture.)",
-                image: "img/product/Traditional Snow Fungus Sweet Soup.png"
-            },
-            {
-                name: "Grass Jelly Watermelon with Snow Fungus",
-                price: 14.75,
-                description: "Grass Jelly, Watermelon, Sago, Floating Rice Cake, Traditional Snow Fungus Sweet Soup",
-                image: "img/product/NO.jpg"
-            },
-            {
-                name: "Grass Jelly Cassava with Snow Fungus",
-                price: 15.50,
-                description: "Grass Jelly, Cassava, Sago, Barley, and Traditional Snow Fungus Sweet Soup",
-                image: "img/product/NO.jpg"
-            },
-            {
-                name: "Taro Taro Snow Fungus",
-                price: 15.50,
-                description: "Taro, Taro Balls, Sago, Barley, Traditional Snow Fungus Sweet Soup, and Plain Coconut Milk",
-                image: "img/product/Taro Taro Snow Fungus.png"
-            },
-            {
-                name: "Banana Barley with Snow Fungus",
-                price: 14.50,
-                description: "Banana, Barley, Taro Balls, Traditional Snow Fungus Sweet Soup, and Plain Coconut Milk",
-                image: "img/product/NO.jpg"
-            }
-        ]
+        products: [{
+            name: "Traditional Snow Fungus Sweet Soup",
+            price: 10.50,
+            description: "Snow Fungus, Chinese Red Dates, Goji Berries and Rock Sugar. Served with Ice. \n" + "<br><br>Snow fungus is a soft, gelatinous Asian fungus with a mild, delicate flavour. Chinese red dates bring natural sweetness, goji berries add a subtle fruity note. This nourishing sweet soup has a lightly sweet taste and smooth, tender gelatinous texture.)",
+            image: "img/product/Traditional Snow Fungus Sweet Soup.png"
+        }, {
+            name: "Grass Jelly Watermelon with Snow Fungus",
+            price: 14.75,
+            description: "Grass Jelly, Watermelon, Sago, Floating Rice Cake, Traditional Snow Fungus Sweet Soup",
+            image: "img/product/NO.jpg"
+        }, {
+            name: "Grass Jelly Cassava with Snow Fungus",
+            price: 15.50,
+            description: "Grass Jelly, Cassava, Sago, Barley, and Traditional Snow Fungus Sweet Soup",
+            image: "img/product/NO.jpg"
+        }, {
+            name: "Taro Taro Snow Fungus",
+            price: 15.50,
+            description: "Taro, Taro Balls, Sago, Barley, Traditional Snow Fungus Sweet Soup, and Plain Coconut Milk",
+            image: "img/product/Taro Taro Snow Fungus.png"
+        }, {
+            name: "Banana Barley with Snow Fungus",
+            price: 14.50,
+            description: "Banana, Barley, Taro Balls, Traditional Snow Fungus Sweet Soup, and Plain Coconut Milk",
+            image: "img/product/NO.jpg"
+        }]
     },
 
     c6: {
@@ -229,28 +208,22 @@ const categoryData = {
         description: "New to build-your-own? Try our pre-set signature dessert bowls for a quick & delicious pick!",
         itemDetailsDisplay: "Yes",
         base: ["Coconut Milk", "Brown Sugar", "Black Milk Tea"],
-        products: [
-            {
-                name: "Custom Your Own Bowl",
-                price: 0.00,
-                description: "Create your own dessert bowl by selecting adds-on, choose between 4 and 10.",
-                image: "img/product/1.jpg"
-            }
-        ]
+        products: [{
+            name: "Custom Your Own Bowl",
+            price: 0.00,
+            description: "Create your own dessert bowl by selecting adds-on, choose between 4 and 10.",
+            image: "img/product/1.jpg"
+        }]
     }
 };
 
-const chooseToppingList = [
-    { name: "Coconut Jelly", price: 1.25 },
-    { name: "Tapioca", price: 1.25 },
-    { name: "Popo", price: 1.25 },
-    { name: "Red Bean", price: 1.25 },
-    { name: "Raisins", price: 1.25 },
-    { name: "Chia Seed", price: 1.25 },
-    { name: "Peanut", price: 1.25 },
-    { name: "Cereal Flakes", price: 1.25 },
-    { name: "Coconut Milk", price: 2.75 },
-];
+const chooseToppingList = [{name: "Coconut Jelly", price: 1.25}, {name: "Tapioca", price: 1.25}, {
+    name: "Popo",
+    price: 1.25
+}, {name: "Red Bean", price: 1.25}, {name: "Raisins", price: 1.25}, {name: "Chia Seed", price: 1.25}, {
+    name: "Peanut",
+    price: 1.25
+}, {name: "Cereal Flakes", price: 1.25}, {name: "Extra Sauce (4 oz)", price: 2.75}];
 
 //Category page initiate category content page data
 const content = document.getElementById("cPage");
@@ -259,7 +232,7 @@ const main = document.getElementById("home");
 function showCategory(catId) {
     // console.log("showCategory called with:", catId);
     currentCat = catId;
-    // console.log("currentCat set to:", currentCat);
+    console.log("currentCat set to:", currentCat);
 
     const data = categoryData[catId];
 
@@ -316,34 +289,42 @@ let chosenProduct = null;
 //listener for dessert add button
 content.addEventListener('click', e => {
     const btn = e.target.closest('.add-button');
-    if(!btn) return;
+    if (!btn) return;
 
     chosenProduct = categoryData[activeCat].products[btn.dataset.index];
 
-    if(categoryData[activeCat].itemDetailsDisplay === "Yes"){
+    if (categoryData[activeCat].itemDetailsDisplay === "Yes") {
         openPanel("topping");
-    }else {
+    } else {
         calcQuantity();
         console.log("clicking add to cart Classical Dessert");
     }
 });
 
-/*topping page Display*/
+// topping page and checkout page Display
 const views = {
     topping: {
-        actionText: "Add to cart",
+        actionText: "Add to Cart",
+        titleText: "Optional toppings & sauce",
+        descText: "Choose up to 8 toppings",
         render: () => `
-            <h2>(Optional) Choose your toppings</h2>
-            <p>Choose up to 8 toppings</p>
             <div class="topping-list" id="toppingList"></div>
         `,
         afterRender: toppingListDisplay,
         onAction: addToCart
-    },
-    checkout: {
-        actionText: "Place order",
-        render: () => `<h2>Checkout</h2><div id="checkoutList"></div>`,
+    }, checkout: {
+        actionText: "Next Step",
+        titleText: "Checkout",
+        descText: "",
+        render: () => `<div id="checkoutList"></div>`,
         afterRender: showOrderList,
+        onAction: nextStep
+    }, inputName: {
+        actionText: "Place Order",
+        titleText: "Checkout",
+        descText: "",
+        render: () => `<div id="confirmPage"></div>`,
+        afterRender: inputUserName,
         onAction: placeOrder
     }
 }
@@ -351,6 +332,7 @@ const views = {
 const toppingPage = document.querySelector(".itemDetails");
 
 function openPanel(viewName) {
+    console.log("Open panel called");
     const v = views[viewName];
     document.getElementById("panelContent").innerHTML = v.render();
     if (v.afterRender) v.afterRender();
@@ -358,6 +340,10 @@ function openPanel(viewName) {
     const btn = document.getElementById("panelAction");
     btn.textContent = v.actionText;
     btn.onclick = v.onAction;
+    const title = document.getElementById("upperTitle");
+    title.textContent = v.titleText;
+    const desc = document.getElementById("upperDesc");
+    desc.textContent = v.descText;
     toppingPage.classList.remove("hidden");
     main.classList.add("no-scroll");
     document.querySelector(".itemDetails-panel").scrollTop = 0;
@@ -378,12 +364,6 @@ function addToCart() {
     closePanel();
 }
 
-function placeOrder() {
-    console.log("place order clicked");
-    closePanel();
-    completeCycle();
-}
-
 
 toppingPage.addEventListener("click", e => {
     if (e.target.closest('.itemDetails-close')) {
@@ -393,27 +373,30 @@ toppingPage.addEventListener("click", e => {
 
 
 //calculate order quantity
-function calcQuantity(){
+function calcQuantity() {
     const selected = [...document.querySelectorAll('.topping-check:checked')]
         .map(box => chooseToppingList[box.value]);
 
+    console.log("Selected options are: ", selected);
+
     const toppKey = selected.map(t => t.name).join(',');
 
-    const existing = cart.find(item => item.name === chosenProduct.name &&  (item.extraTopp || []).map(t => t.name).join(',') === toppKey);
+    const existing = cart.find(item => item.name === chosenProduct.name && (item.extraTopp || []).map(t => t.name).join(',') === toppKey);
 
-    if(existing){
+    if (existing) {
         existing.qty++;
-    }else{
+    } else {
         cart.push({...chosenProduct, extraTopp: selected, qty: 1});
     }
     updateCardButton();
-    console.log("Cart: ", cart);
+    // console.log("Cart: ", cart);
 }
 
 //show topping list in topping page
 function toppingListDisplay() {
     console.log("generating topping list");
-    document.getElementById("toppingList").innerHTML = chooseToppingList.map((t, index) => `
+    const container = document.getElementById("toppingList");
+    container.innerHTML = chooseToppingList.slice(0, -1).map((t, index) => `
         <label class="topping-row">
             <div class="topping-info">
                 <span class="topping-name">${t.name}</span>
@@ -422,6 +405,40 @@ function toppingListDisplay() {
             <input type="checkbox" class="topping-check" value="${index}">
         </label>
     `).join('');
+
+    const lastIndex = chooseToppingList.length - 1;
+    const t = chooseToppingList[lastIndex];
+    const sauceName = categoryData[currentCat].base;
+
+    const baseHtml = chooseToppingList.slice(-1).map((t) => `
+        <div class="topping-expand">
+        <div class="topping-row expand-header" data-expand-toggle>
+            <div class="topping-info">
+                <span class="topping-name">${t.name}</span>
+                <span class="topping-price">+$${t.price.toFixed(2)}</span>
+            </div>
+            <span class="expand-arrow">▸</span>
+        </div>
+        <div class="expand-content" hidden>
+            <label class="topping-row sub-row">
+                <div class="topping-info" id="sauceRow">
+                    <span class="topping-name">${sauceName}</span>
+                </div>
+                <input type="checkbox" class="topping-check" value="${lastIndex}">
+            </label>
+        </div>
+    </div>
+    `).join('');
+
+    container.insertAdjacentHTML("beforeend", baseHtml);
+
+    container.querySelectorAll('[data-expand-toggle]').forEach(header => {
+        header.addEventListener('click', () => {
+            const content = header.nextElementSibling;
+            content.hidden = !content.hidden;
+            header.querySelector('.expand-arrow').textContent = content.hidden ? '▸' : '▾';
+        });
+    });
 
     main.querySelector('.itemDetails').classList.remove('hidden');
 }
@@ -460,13 +477,42 @@ function showOrderList() {
     `).join('');
 }
 
-function completeCycle() {
+function inputUserName() {
+    console.log("Hello!");
+    document.getElementById("confirmPage").innerHTML = `
+        <div class="item">
+            <h3>Please let us know who is ordering 🌹</h3>
+            <input type="text" id="nameInput" placeholder="Your Name...">
+        </div>
+    `;
+}
+
+//TODO: Change the price accordingly to the extra topping
+
+function placeOrder() {
+    console.log("place order clicked");
+    const name = document.getElementById("nameInput").value.trim();
+    closePanel();
+    completeCycle(name);
+}
+
+function nextStep() {
+    console.log("next step clicked :)");
+    openPanel("inputName");
+
+}
+
+function completeCycle(name) {
     console.log("Customer has complete an order!");
-    sendActiveOrder();
+    sendActiveOrder(name);
     cart.length = 0;
     updateCardButton();
     closePanel();
-    //hide all subpage
+    intro.classList.remove("hide");
+    lang = "en";
+    currentCat = null;
+    activeCat = "c1";
+
     //clear all data: viewCart amount, and all necessary variables
 }
 
@@ -506,7 +552,7 @@ function saveOrders(orders) {
     localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
 }
 
-function sendActiveOrder() {
+function sendActiveOrder(name) {
     if (cart.length === 0) return;
 
     const total = cart.reduce((sum, item) => {
@@ -516,19 +562,13 @@ function sendActiveOrder() {
     }, 0);
 
     const order = {
-        customerName: "Rosie", //这里需要让用户有地方写自己的名字
-        time: new Date().toLocaleString(),
-        items: cart.map(item => ({
-            name: item.name,
-            price: item.price,
-            qty: item.qty,
-            extraTopp: (item.extraTopp || []).map(t => ({
-                name: t.name,
-                price: t.price
+        customerName: name, //这里需要让用户有地方写自己的名字
+        time: new Date().toLocaleString(), items: cart.map(item => ({
+            name: item.name, price: item.price, qty: item.qty, extraTopp: (item.extraTopp || []).map(t => ({
+                name: t.name, price: t.price
             }))
         })), // 深拷贝，清空 cart 不会影响订单
-        total: Math.round(total * 100) / 100,
-        status: "active"
+        total: Math.round(total * 100) / 100, status: "active"
     };
 
     const orders = loadOrders();
@@ -583,7 +623,7 @@ function renderActiveOrders() {
 document.querySelector(".clean-storage").addEventListener("click", () => {
     const input = prompt("Enter password to clear all orders:");
 
-    if (input === null) return;              // 点了取消
+    if (input === null) return;
 
     if (input !== CLEAN_PASSWORD) {
         alert("Wrong password.");
@@ -602,7 +642,7 @@ const closeBtn = document.getElementById('lightbox-close');
 
 content.addEventListener('click', (e) => {
     const img = e.target.closest('.product-row img');
-    if(!img) return;
+    if (!img) return;
 
     updateLightboxLeft();
     lightboxImg.src = img.src;
@@ -630,19 +670,14 @@ window.addEventListener('resize', () => {
 //click to switch language
 document.addEventListener('click', (e) => {
     const langBtn = e.target.closest('.language');
-    if(!langBtn) return;
+    if (!langBtn) return;
 
     const span = langBtn.querySelector('span');
     lang = (lang === "en") ? "zh" : "en";
-    console.log("lang is: ",lang);
+    console.log("lang is: ", lang);
     localStorage.setItem("lang", lang);
 
     span.textContent = (lang === "en") ? "English" : "简体中文";
 
     if (currentCat) showCategory(currentCat);
 })
-
-
-//initiate page calling method
-updateCardButton();
-showCategory(activeCat);
