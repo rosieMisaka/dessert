@@ -212,7 +212,30 @@ html, body {
     color: var(--p-dsp);
 }
 
+/*add and remove button in view cart page*/
+.order-item-amount {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 120px;
+    height: 44px;
+    padding: 0 6px;
+    background: #f4f4f4;
+    border-radius: 999px;
+}
 
+.amount-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    line-height: 1;
+    color: #111;
+    cursor: pointer;
+    border-radius: 50%;
+}
 
 /* view cart button*/
 .viewCart {
@@ -227,7 +250,7 @@ html, body {
 
     padding: 10px 17px;
     border: none;
-    border-radius: 999px;         /* 胶囊形状 */
+    border-radius: 999px;
     background: var(--addBtn-bg);
     color: #fff;
     font-size: 14px;
@@ -310,7 +333,7 @@ html, body {
 .itemDetails-panel .bottom {
     margin-top: auto;
     flex-shrink: 0;
-    padding: 45px 0;
+    padding: 30px 0;
     border-top: 1px solid #525252;
     position: sticky;
     bottom: 0;

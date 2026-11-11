@@ -317,7 +317,7 @@ const views = {
         titleText: "Checkout",
         descText: "",
         render: () => `<div id="checkoutList"></div>`,
-        afterRender: showOrderList,
+        afterRender: initCheckout,
         onAction: nextStep
     }, inputName: {
         actionText: "Place Order",
@@ -346,7 +346,6 @@ function openPanel(viewName) {
     desc.textContent = v.descText;
     toppingPage.classList.remove("hidden");
     main.classList.add("no-scroll");
-    document.querySelector(".itemDetails-panel").scrollTop = 0;
 
     document.querySelector(".itemDetails-panel").scrollTop = 0;
 }
@@ -389,7 +388,8 @@ function calcQuantity() {
         cart.push({...chosenProduct, extraTopp: selected, qty: 1});
     }
     updateCardButton();
-    // console.log("Cart: ", cart);
+    console.log("Cart: ", cart);
+    console.log("Chosenproduct is: ",chosenProduct);
 }
 
 //show topping list in topping page
@@ -461,8 +461,12 @@ main.addEventListener("click", e => {
     }
 });
 
-function showOrderList() {
-    document.getElementById("checkoutList").innerHTML = cart.map((item, index) => `
+
+const MIN_QTY = 0;   // 想让减到 0 时删除该商品的话，见下方说明
+const MAX_QTY = 50;
+
+function renderOrderList() {
+    document.getElementById('checkoutList').innerHTML = cart.map((item, index) => `
         <div class="product-grid">
         <div class="order-item" data-index="${index}">
             <img class="order-item-img" src="${item.image}">
@@ -471,11 +475,60 @@ function showOrderList() {
                 <span class="order-item-price">$${item.price.toFixed(2)}</span>
                 <p class="extra-ingredient">Extra topping: ${item.extraTopp.map(t => t.name).join(', ')}</p>
             </div>
-            <span class="order-item-qty">x${item.qty}</span>
+            <div class="order-item-amount">
+                <button class="amount-btn" data-action="minus">−</button>
+                <span class="order-item-qty">${item.qty}</span>
+                <button class="amount-btn" data-action="plus">+</button>
+            </div>
         </div>
         </div>
     `).join('');
 }
+
+
+function initCheckout() {
+    renderOrderList();
+
+    document.getElementById('checkoutList').addEventListener('click', handleCheckoutClick);
+}
+
+function handleCheckoutClick(e) {
+    // + or - product item quantity in view cart page
+        const btn = e.target.closest('.amount-btn');
+        if (!btn) return;
+
+        const item = btn.closest('.order-item');
+        const index = Number(item.dataset.index);   // 对应 Cart 数组下标
+        const delta = btn.dataset.action === 'plus' ? 1 : -1;
+
+        const newQty = cart[index].qty + delta;
+        console.log("newQty is: ",newQty)
+        if (newQty < MIN_QTY || newQty > MAX_QTY) return;
+        if (newQty === 0){
+            removeItemFromCheckout(index);
+            return;
+        }
+
+        cart[index].qty = newQty;
+        updateRow(item, index);
+        updateCardButton();
+}
+
+function updateRow(item, index) {
+    const qty = cart[index].qty;
+    item.querySelector('.order-item-qty').textContent = qty;
+    item.querySelector('[data-action="minus"]').disabled = qty <= MIN_QTY;
+    item.querySelector('[data-action="plus"]').disabled  = qty >= MAX_QTY;
+}
+
+function removeItemFromCheckout(index) {
+    console.log("removing item, Index is: ",index);
+    cart.splice(index, 1);
+    renderOrderList();
+    updateCardButton();
+    if(cart.length === 0) closePanel();
+}
+
 
 function inputUserName() {
     console.log("Hello!");
