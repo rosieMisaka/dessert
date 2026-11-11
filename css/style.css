@@ -4,7 +4,7 @@
     --addBtn-bg: #525252;
     --p-dsp: #707070;
     --menu-width: 15%;
-    --header-height: 50px;
+    --header-height: 53px;
 }
 
 * {
@@ -73,13 +73,20 @@ html, body {
 }
 
 #home.no-scroll .category-content {
-    overflow: hidden; !important;
+    overflow: hidden !important;
 }
 
 .header-nav {
     display: flex;
     align-items: center;
     gap:40px;
+}
+
+.logo {
+    height: var(--header-height);
+    width: auto;
+    flex-shrink: 0;
+    padding: 6px 0;
 }
 
 /*header button css*/
@@ -438,6 +445,7 @@ html, body {
     border: 1px solid #e2ded4;
     border-radius: 8px;
     padding: 12px;
+    background: #fcf8f0;
 }
 
 .order-card-head,
@@ -458,6 +466,18 @@ html, body {
     padding-top: 8px;
     margin-top: 8px;
     font-weight: bold;
+}
+
+.order-card-item {
+    margin: 15px 0 30px 0;
+}
+
+.order-card-items .order-card-name {
+    font-weight: bold;
+}
+
+.extra-ingredient {
+    margin: 15px;
 }
 
 /*!*light  box - check bigger size of product img*!*/
@@ -503,6 +523,54 @@ html, body {
     line-height: 32px;
     cursor: pointer;
 }
+
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;                         /* 铺满整个屏幕 */
+    background: rgba(0, 0, 0, 0.6);   /* 半透明黑色 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal-box {
+    position: relative;
+    background: #fff;
+    padding: 65px 32px 40px 32px;
+    border-radius: 12px;
+    width: 60%;
+    height: 50%;
+    max-height: 80vh;
+    min-width: 280px;
+    max-width: 90%;
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#modalContent {
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+}
+
+.modal-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    border: none;
+    background: none;
+    font-size: 24px;
+}
+
+
 
 /*name input page for checkout*/
 #nameInput {

@@ -5,8 +5,9 @@ const intro = document.getElementById("intro");
 
 //listener for intro page
 intro.addEventListener("click", () => {
+    setLang("en");
     intro.classList.add("hide");
-    console.log("Now the activeCat is: ",activeCat);
+    // console.log("Now the activeCat is: ",activeCat);
     showCategory(activeCat);
     //set category menu to default
     document.querySelectorAll('.cat').forEach(c => {
@@ -230,9 +231,10 @@ const content = document.getElementById("cPage");
 const main = document.getElementById("home");
 
 function showCategory(catId) {
-    // console.log("showCategory called with:", catId);
+    console.log("showCategory called with:", catId);
     currentCat = catId;
     console.log("currentCat set to:", currentCat);
+    console.log("lang in showCatetory is:",lang)
 
     const data = categoryData[catId];
 
@@ -462,7 +464,7 @@ main.addEventListener("click", e => {
 });
 
 
-const MIN_QTY = 0;   // 想让减到 0 时删除该商品的话，见下方说明
+const MIN_QTY = 0;
 const MAX_QTY = 50;
 
 function renderOrderList() {
@@ -498,7 +500,7 @@ function handleCheckoutClick(e) {
         if (!btn) return;
 
         const item = btn.closest('.order-item');
-        const index = Number(item.dataset.index);   // 对应 Cart 数组下标
+        const index = Number(item.dataset.index);
         const delta = btn.dataset.action === 'plus' ? 1 : -1;
 
         const newQty = cart[index].qty + delta;
@@ -562,7 +564,7 @@ function completeCycle(name) {
     updateCardButton();
     closePanel();
     intro.classList.remove("hide");
-    lang = "en";
+    setLang("en")
     currentCat = null;
     activeCat = "c1";
 
@@ -651,7 +653,7 @@ function renderActiveOrders() {
                 ${order.items.map(item => `
                     <div class="order-card-item">
                         <div class="order-card-line">
-                            <span>${item.name} x${item.qty}</span>
+                            <span class="order-card-name">${item.name} x${item.qty}</span>
                             <span>$${item.price.toFixed(2)}</span>
                         </div>
                         ${item.extraTopp.length > 0 ? `
@@ -727,10 +729,33 @@ document.addEventListener('click', (e) => {
 
     const span = langBtn.querySelector('span');
     lang = (lang === "en") ? "zh" : "en";
-    console.log("lang is: ", lang);
-    localStorage.setItem("lang", lang);
-
-    span.textContent = (lang === "en") ? "English" : "简体中文";
+    setLang(lang);
 
     if (currentCat) showCategory(currentCat);
 })
+
+function setLang(language) {
+    lang = language;
+    console.log("lang is: ", lang);
+    localStorage.setItem("lang", lang);
+    document.querySelector('.language span').textContent = (lang === "en") ? "English" : "简体中文";
+}
+
+
+// edit active order
+const modal = document.getElementById("orderModal");
+const modalContent = document.getElementById("modalContent");
+
+document.getElementById("orderList").addEventListener("click", (e) => {
+    const card = e.target.closest(".order-card");
+    if (!card) return;
+
+    const items = card.querySelector(".order-card-items");
+    modalContent.innerHTML = items.innerHTML;
+
+    modal.classList.remove("hidden");
+});
+
+document.getElementById("modalClose").addEventListener("click", () => {
+    modal.classList.add("hidden");
+});
