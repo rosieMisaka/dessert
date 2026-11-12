@@ -750,6 +750,9 @@ const modal = document.getElementById("orderModal");
 const modalContent = document.getElementById("modalContent");
 
 document.getElementById("orderList").addEventListener("click", (e) => {
+    const input = prompt("Enter password to continue:");
+    if(input !== CLEAN_PASSWORD) return;
+
     const card = e.target.closest(".order-card");
     if (!card) return;
 
