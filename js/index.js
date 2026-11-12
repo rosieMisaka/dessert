@@ -642,14 +642,17 @@ function renderActiveOrders() {
     }
 
     // 新订单排前面
-    list.innerHTML = [...orders].reverse().map(order => `
-        <div class="order-card" data-id="${order.customerName}">
+    list.innerHTML = orders.map((order, index) => ({ order, index }))
+        .reverse()
+        .map(({ order, index }) => `
+        <div class="order-card" data-id=${index}>
             <div class="order-card-head">
                 <span class="order-card-name">Customer: ${order.customerName}</span>
                 <span class="order-card-time">${order.time}</span>
             </div>
 
             <div class="order-card-items">
+            <span data-id=${index}></span>
                 ${order.items.map(item => `
                     <div class="order-card-item">
                         <div class="order-card-line">
@@ -759,3 +762,19 @@ document.getElementById("orderList").addEventListener("click", (e) => {
 document.getElementById("modalClose").addEventListener("click", () => {
     modal.classList.add("hidden");
 });
+
+const deleteBtn = document.querySelector('.delete-tool button');
+const editBtn = document.querySelector('.edit-tool button');
+deleteBtn.onclick = () => deleteSingleActiveOrder();
+editBtn.onclick = () => console.log("edit edit");
+
+function deleteSingleActiveOrder() {
+    console.log("Hi delete");
+    const index = document.querySelector("#modalContent span").dataset.id;
+    console.log("Index for removing orders is: ",index);
+    const orders = loadOrders();
+    orders.splice(index, 1);
+    saveOrders(orders)
+    modal.classList.add("hidden");
+    renderActiveOrders();
+}

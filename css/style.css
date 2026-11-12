@@ -445,7 +445,7 @@ html, body {
     border: 1px solid #e2ded4;
     border-radius: 8px;
     padding: 12px;
-    background: #fcf8f0;
+    background: #faf7f4;
 }
 
 .order-card-head,
@@ -542,7 +542,7 @@ html, body {
 .modal-box {
     position: relative;
     background: #fff;
-    padding: 65px 32px 40px 32px;
+    padding: 22px 32px 20px 32px;
     border-radius: 12px;
     width: 60%;
     height: 50%;
@@ -568,6 +568,37 @@ html, body {
     border: none;
     background: none;
     font-size: 24px;
+}
+
+.delete-tool button{
+    margin: 0 0 15px 0;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.delete-tool button img {
+    height: 20px;
+    width: auto;
+    display: block;
+}
+
+.edit-tool{
+    margin: 20px 0 5px 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.edit-tool button {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.edit-tool button img {
+    height: 16px;
+    width: auto;
+    display: block;
 }
 
 
