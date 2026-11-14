@@ -1,7 +1,7 @@
 :root {
     --product-imgSize: 100px;
     --global-bg: white;
-    --addBtn-bg: #525252;
+    --addBtn-bg: #6e7d4f;
     --p-dsp: #707070;
     --menu-width: 15%;
     --header-height: 53px;
@@ -233,15 +233,30 @@ html, body {
 }
 
 .amount-btn {
+    padding: 0;
+    border: none;
+    appearance: none;
+    background: transparent;
+
     width: 32px;
     height: 32px;
-    border: none;
-    background: transparent;
+
+    font-family: inherit;
     font-size: 24px;
     line-height: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     color: #111;
-    cursor: pointer;
     border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.order-item-qty {
+    flex: 1;
+    text-align: center;
 }
 
 /* view cart button*/
@@ -265,6 +280,19 @@ html, body {
     white-space: nowrap;          /* 防止文字换行 */
 
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.panel-action {
+    width: 200px;
+    height: 40px;
+    padding: 10px 17px;
+    border: none;
+    border-radius: 30px;
+    background: var(--addBtn-bg);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
 }
 
 /*add item button*/
