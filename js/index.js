@@ -218,7 +218,7 @@ const categoryData = {
             name: "Custom Your Own Bowl",
             price: 0.00,
             description: "Create your own dessert bowl by selecting adds-on, choose between 4 and 10.",
-            image: "img/product/1.jpg"
+            image: "img/product/Custom Desserts Bowl.png"
         }]
     }
 };
