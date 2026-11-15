@@ -2,10 +2,15 @@
 const CLEAN_PASSWORD = "8886";
 //intro-------------------------------------------------
 const intro = document.getElementById("intro");
+let cyoSelected = [];
+let isCyoPage = false;
 
 //listener for intro page
 intro.addEventListener("click", () => {
     setLang("en");
+    isCyoPage = false;
+    cyoSelected = [];
+
     intro.classList.add("hide");
     // console.log("Now the activeCat is: ",activeCat);
     showCategory(activeCat);
@@ -226,6 +231,31 @@ const chooseToppingList = [{name: "Coconut Jelly", price: 1.25}, {name: "Tapioca
     price: 1.25
 }, {name: "Cereal Flakes", price: 1.25}, {name: "Extra Sauce (4 oz)", price: 2.75}];
 
+
+const dessertBase = [
+    {name: "Coconut Milk"},
+    {name: "Brown Sugar"},
+    {name: "Camellia Milk Tea"}
+];
+
+const addOns = [
+    {name: "Sago", price: 2.15},
+    {name: "Barley", price: 2.15},
+    {name: "Taro Balls", price: 2.65},
+    {name: "Glutinous Rice Balls (Sesame)", price: 2.65},
+    {name: "Banana", price: 2.15},
+    {name: "Watermelon", price: 2.65},
+    {name: "Mango (Seasonal)", price: 3.40},
+    {name: "Taro (Seasonal)", price: 3.40},
+    {name: "Cassava", price: 3.40},
+    {name: "Coconut Mochi", price: 2.99},
+    {name: "Coconut Pudding", price: 2.99},
+    {name: "Grass Jelly", price: 2.65},
+    {name: "Fig Jelly", price: 2.65},
+    {name: "White Sticky Rice", price: 2.65},
+    {name: "Purple Sticky Rice", price: 2.65}
+];
+
 //Category page initiate category content page data
 const content = document.getElementById("cPage");
 const main = document.getElementById("home");
@@ -296,7 +326,8 @@ content.addEventListener('click', e => {
     chosenProduct = categoryData[activeCat].products[btn.dataset.index];
 
     if (categoryData[activeCat].itemDetailsDisplay === "Yes") {
-        openPanel("topping");
+        if(currentCat === "c6") openPanel("customYourOwn");
+        else openPanel("topping");
     } else {
         calcQuantity();
         console.log("clicking add to cart Classical Dessert");
@@ -310,11 +341,18 @@ const views = {
         titleText: "Optional toppings & sauce",
         descText: "Choose up to 8 toppings",
         render: () => `
-            <div class="topping-list" id="toppingList"></div>
-        `,
+            <div class="topping-list" id="toppingList"></div>`,
         afterRender: toppingListDisplay,
         onAction: addToCart
-    }, checkout: {
+    },customYourOwn: {
+        actionText: "Next Step",
+        titleText: "Custom Your Own",
+        descText: "",
+        render: ()=> `<div id="customYourOwn"></div>`,
+        afterRender: customYourOwnMustChoose,
+        onAction: nextToppingStep
+    }
+    , checkout: {
         actionText: "Next Step",
         titleText: "Checkout",
         descText: "",
@@ -357,12 +395,20 @@ function openPanel(viewName) {
 function closePanel() {
     toppingPage.classList.add("hidden");
     main.classList.remove("no-scroll");
+    cyoSelected = [];
+    isCyoPage = false;
 }
 
 function addToCart() {
     console.log("Add to cart clicked");
     calcQuantity(chosenProduct);
     closePanel();
+}
+
+function nextToppingStep() {
+    cyoSelected = [...document.querySelectorAll('.addon-check:checked')].map(box => addOns[box.value]);
+    isCyoPage = true;
+    openPanel("topping");
 }
 
 
@@ -378,20 +424,52 @@ function calcQuantity() {
     const selected = [...document.querySelectorAll('.topping-check:checked')]
         .map(box => chooseToppingList[box.value]);
 
-    console.log("Selected options are: ", selected);
+    const allSelected = isCyoPage ? [...cyoSelected, ...selected] : selected;
 
-    const toppKey = selected.map(t => t.name).join(',');
+    const toppKey = allSelected.map(t => t.name).join(',');
 
     const existing = cart.find(item => item.name === chosenProduct.name && (item.extraTopp || []).map(t => t.name).join(',') === toppKey);
 
     if (existing) {
         existing.qty++;
     } else {
-        cart.push({...chosenProduct, extraTopp: selected, qty: 1});
+        cart.push({...chosenProduct, extraTopp: allSelected, qty: 1});
     }
     updateCardButton();
     console.log("Cart: ", cart);
     console.log("Chosenproduct is: ",chosenProduct);
+    isCyoPage = false;
+    cyoSelected = [];
+}
+
+
+function customYourOwnMustChoose() {
+    if (currentCat === "c6") console.log(currentCat);
+    const container = document.getElementById("customYourOwn");
+
+    container.innerHTML = `<h3>Choose 1 Dessert Base: </h3>` + dessertBase.map((t, index) => `
+        <label class="addon-row">
+            <div class="addon-info">
+                <span class="addon-name">${t.name}</span>
+            </div>
+            <input type="radio" name="dessertBase" class="addon-check" value="${index}">
+        </label>
+    `).join('');
+
+    const addonHTML= `<br><h3 class="addon-title">Choose minimum 4 items (Use Number for Portions): </h3>` +
+        addOns.map((t, index) => `
+        <label class="addon-row">
+            <div class="addon-info">
+                <span class="addon-name">${t.name}</span>
+                <span class="addon-price">+$${t.price.toFixed(2)}</span>
+            </div>
+            <input type="checkbox" class="addon-check" value="${index}">
+        </label>
+    `).join('');
+
+
+    container.insertAdjacentHTML("beforeend", addonHTML);
+
 }
 
 //show topping list in topping page
@@ -567,6 +645,8 @@ function completeCycle(name) {
     setLang("en")
     currentCat = null;
     activeCat = "c1";
+    isCyoPage = false;
+    cyoSelected = [];
 
     //clear all data: viewCart amount, and all necessary variables
 }
