@@ -233,9 +233,9 @@ const chooseToppingList = [{name: "Coconut Jelly", price: 1.25}, {name: "Tapioca
 
 
 const dessertBase = [
-    {name: "Coconut Milk"},
-    {name: "Brown Sugar"},
-    {name: "Camellia Milk Tea"}
+    {name: "Coconut Milk", price:0.00},
+    {name: "Brown Sugar", price: 0.00},
+    {name: "Camellia Milk Tea", price: 0.00}
 ];
 
 const addOns = [
@@ -326,8 +326,7 @@ content.addEventListener('click', e => {
     chosenProduct = categoryData[activeCat].products[btn.dataset.index];
 
     if (categoryData[activeCat].itemDetailsDisplay === "Yes") {
-        if(currentCat === "c6") openPanel("customYourOwn");
-        else openPanel("topping");
+        openPanel(currentCat === "c6" ? "customYourOwn" : "topping");
     } else {
         calcQuantity();
         console.log("clicking add to cart Classical Dessert");
@@ -406,7 +405,29 @@ function addToCart() {
 }
 
 function nextToppingStep() {
+    //verify if user made the choices according to the requirement
+    console.log("running nextToppingStep")
+    const checked = document.querySelector('.base-check:checked');
+    const errorBase = document.getElementById('baseError');
+    const addonCount = document.querySelectorAll('.addon-check:checked').length;
+    const errorAddon = document.getElementById('addonError');
+
+    errorBase.style.display = 'none';
+    errorAddon.style.display = 'none';
+
+    if (!checked) {
+        errorBase.style.display = 'block';
+        return;
+    }
+    if (addonCount < 4) {
+        errorAddon.style.display = 'block';
+        return;
+    }
+
+
     cyoSelected = [...document.querySelectorAll('.addon-check:checked')].map(box => addOns[box.value]);
+    const baseSelected = [...document.querySelectorAll('.base-check:checked')].map(box => dessertBase[box.value]);
+    cyoSelected = [...baseSelected, ...cyoSelected];
     isCyoPage = true;
     openPanel("topping");
 }
@@ -447,17 +468,18 @@ function customYourOwnMustChoose() {
     if (currentCat === "c6") console.log(currentCat);
     const container = document.getElementById("customYourOwn");
 
-    container.innerHTML = `<h3>Choose 1 Dessert Base: </h3>` + dessertBase.map((t, index) => `
-        <label class="addon-row">
-            <div class="addon-info">
-                <span class="addon-name">${t.name}</span>
+    container.innerHTML = `<h3>Choose 1 Dessert Base: </h3>` + `<p id="baseError" style="color:red; display:none;">Please choose one option.</p>` + dessertBase.map((t, index) => `
+        <label class="base-row">
+            <div class="base-info">
+                <span class="base-name">${t.name}</span>
             </div>
-            <input type="radio" name="dessertBase" class="addon-check" value="${index}">
+            <input type="radio" name="dessertBase" class="base-check" value="${index}">
         </label>
     `).join('');
 
-    const addonHTML= `<br><h3 class="addon-title">Choose minimum 4 items (Use Number for Portions): </h3>` +
-        addOns.map((t, index) => `
+    const addonHTML= `<br><h3 class="addon-title">Choose minimum 4 add-ons (Use Number for Portions): </h3>`
+        + `<p id="addonError" style="color:red; display:none;">Please choose at least 4 add-ons.</p>`
+        + addOns.map((t, index) => `
         <label class="addon-row">
             <div class="addon-info">
                 <span class="addon-name">${t.name}</span>
@@ -716,6 +738,13 @@ function renderActiveOrders() {
     const list = document.getElementById("orderList");
     const orders = loadOrders();
 
+    orders.forEach((o, i) => {
+        if (o.total == null) console.warn("bad total at order", i, o);
+        o.items.forEach(it => {
+            if (it.price == null) console.warn("bad price at order", i, it);
+        });
+    });
+
     if (orders.length === 0) {
         list.innerHTML = `<p class="no-order">No orders yet.</p>`;
         return;
@@ -847,9 +876,12 @@ document.getElementById("modalClose").addEventListener("click", () => {
 });
 
 const deleteBtn = document.querySelector('.delete-tool button');
-const editBtn = document.querySelector('.edit-tool button');
+const editBtn = document.querySelector('.edit-tool .modify');
+const printBtn = document.querySelector('.edit-tool .print');
+
 deleteBtn.onclick = () => deleteSingleActiveOrder();
 editBtn.onclick = () => console.log("edit edit");
+printBtn.onclick = () => console.log("print print");
 
 function deleteSingleActiveOrder() {
     console.log("Hi delete");

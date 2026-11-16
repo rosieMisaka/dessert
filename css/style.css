@@ -435,7 +435,7 @@ html, body {
     flex-direction: column;        /* 一列，每个配料一行 */
 }
 
-.topping-row, .addon-row {
+.topping-row, .addon-row, .base-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -444,7 +444,7 @@ html, body {
     cursor: pointer;
 }
 
-.topping-info, .addon-info {
+.topping-info, .addon-info, .base-info {
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -455,7 +455,7 @@ html, body {
     color: #666;
 }
 
-.topping-check,  .addon-check{
+.topping-check, .addon-check, .base-check{
     width: 20px;
     height: 20px;
 }
@@ -620,6 +620,7 @@ html, body {
     background: none;
     border: none;
     padding: 0;
+    margin-left: 50px;
 }
 
 .edit-tool button img {
